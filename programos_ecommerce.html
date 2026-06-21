@@ -1,0 +1,548 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pm-navy:#1a237e;--pm-navy-light:#3949ab;--pm-navy-pale:#e8eaf6;
+  --pm-violet:#6a1b9a;--pm-violet-light:#9c27b0;--pm-violet-pale:#f3e5f5;
+  --pm-teal:#006064;--pm-teal-light:#00838f;--pm-teal-pale:#e0f7fa;
+  --pm-gold:#f57f17;--pm-gold-light:#ffb300;
+  --bg:#f8f9ff;--card:#fff;--border:rgba(26,35,126,0.12);
+  --text:#1a1a2e;--muted:#5c6080;--radius:10px;
+}
+body{font-family:var(--font-sans,'system-ui',sans-serif);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+
+/* NAV */
+#nav{background:var(--pm-navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100}
+.nav-brand{color:#fff;font-weight:600;font-size:17px;letter-spacing:-0.3px;display:flex;align-items:center;gap:8px}
+.brand-dot{width:8px;height:8px;background:var(--pm-gold-light);border-radius:50%;display:inline-block}
+.nav-right{display:flex;gap:8px}
+.btn-nav{background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s}
+.btn-nav:hover{background:rgba(255,255,255,0.12)}
+.btn-nav.primary{background:var(--pm-violet-light);border-color:var(--pm-violet-light)}
+.btn-nav.primary:hover{background:var(--pm-violet)}
+#user-info{color:#fff;font-size:13px;display:flex;align-items:center;gap:8px}
+.avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--pm-violet-light);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff}
+
+/* TABS */
+#tabs{background:#fff;border-bottom:1.5px solid var(--border);padding:0 1.5rem;display:flex;gap:2px;overflow-x:auto}
+.tab{padding:11px 18px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--pm-navy)}
+.tab.active{color:var(--pm-navy);border-bottom-color:var(--pm-navy)}
+.tab i{font-size:15px}
+
+/* CONTENT */
+#content{padding:1.5rem;max-width:1100px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--pm-navy) 0%,var(--pm-violet) 60%,var(--pm-teal) 100%);border-radius:14px;padding:2.5rem 2rem;color:#fff;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hero::after{content:'</>';position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:5rem;font-weight:700;opacity:.08;font-family:monospace}
+.hero h1{font-size:1.8rem;font-weight:600;margin-bottom:.5rem;letter-spacing:-0.5px}
+.hero p{opacity:.85;font-size:.95rem;max-width:480px;line-height:1.6}
+.hero-btns{margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-hero{padding:9px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;border:none;transition:opacity .15s}
+.btn-hero.primary{background:#fff;color:var(--pm-navy)}
+.btn-hero.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-hero:hover{opacity:.88}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem}
+.stat-val{font-size:1.4rem;font-weight:600;color:var(--pm-navy)}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* SEARCH & FILTERS */
+.search-bar{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--text)}
+.search-bar select{padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:#fff;color:var(--text);cursor:pointer}
+.search-bar button{padding:9px 16px;background:var(--pm-navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
+.search-bar button:hover{background:var(--pm-navy-light)}
+
+/* PALETTE BAR */
+.palette-bar{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.palette-bar label{font-size:12px;color:var(--muted);font-weight:500}
+.pal-btn{padding:4px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;font-size:12px;font-weight:500;transition:all .15s}
+.pal-btn:hover,.pal-btn.active{transform:scale(1.05)}
+
+/* CARDS GRID */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem;transition:box-shadow .15s;cursor:pointer}
+.card:hover{border-color:var(--pm-navy-light)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
+.cat-badge{font-size:11px;padding:3px 9px;border-radius:12px;font-weight:500}
+.cat-dev{background:var(--pm-navy-pale);color:var(--pm-navy)}
+.cat-ia{background:var(--pm-violet-pale);color:var(--pm-violet)}
+.cat-data{background:var(--pm-teal-pale);color:var(--pm-teal)}
+.cat-mobile{background:#fff3e0;color:#e65100}
+.cat-ux{background:#e8f5e9;color:#1b5e20}
+.price-tag{font-size:14px;font-weight:600;color:var(--pm-teal)}
+.card h3{font-size:14px;font-weight:500;margin-bottom:.4rem;line-height:1.4}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:.75rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.freelancer-row{display:flex;align-items:center;gap:6px}
+.avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff}
+.freelancer-name{font-size:12px;color:var(--muted)}
+.stars{color:var(--pm-gold);font-size:12px}
+.rating-val{font-size:12px;color:var(--muted);margin-left:2px}
+.btn-contratar{padding:5px 12px;background:var(--pm-navy);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500}
+.btn-contratar:hover{background:var(--pm-navy-light)}
+
+/* SECTION HEADER */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.section-title{font-size:1rem;font-weight:600;color:var(--text)}
+.btn-publish{padding:8px 16px;background:var(--pm-violet-light);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
+.btn-publish:hover{background:var(--pm-violet)}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:1.5rem}
+.modal-title{font-size:1rem;font-weight:600;margin-bottom:1.25rem;color:var(--pm-navy)}
+.form-group{margin-bottom:.9rem}
+.form-group label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:4px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:#fff;font-family:inherit}
+.form-group textarea{resize:vertical;min-height:80px}
+.modal-footer{display:flex;gap:.5rem;justify-content:flex-end;margin-top:1rem}
+.btn-cancel{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted)}
+.btn-submit{padding:8px 18px;background:var(--pm-navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500}
+.btn-submit:hover{background:var(--pm-navy-light)}
+
+/* PALETTE SHOWCASE */
+.palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.palette-card{border-radius:12px;overflow:hidden;border:0.5px solid var(--border)}
+.palette-swatch{height:90px;display:flex;gap:4px;padding:10px}
+.swatch-block{flex:1;border-radius:6px}
+.palette-info{padding:.75rem;background:#fff}
+.palette-name{font-size:13px;font-weight:600;color:var(--text)}
+.palette-type{font-size:11px;color:var(--muted);margin-top:2px}
+.palette-hex{font-size:10px;color:var(--muted);margin-top:4px;font-family:monospace}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--pm-navy);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* PROFILE */
+.profile-box{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.5rem;max-width:520px}
+.profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+.avatar-lg{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;color:#fff;background:var(--pm-violet-light)}
+.profile-name{font-size:1.1rem;font-weight:600}
+.profile-role{font-size:13px;color:var(--muted)}
+.profile-detail{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;margin:.35rem 0}
+.profile-detail i{color:var(--pm-navy);font-size:15px}
+.divider{border:none;border-top:0.5px solid var(--border);margin:1rem 0}
+
+/* ORDERS */
+.order-row{background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.order-title{font-size:14px;font-weight:500}
+.order-meta{font-size:12px;color:var(--muted);margin-top:3px}
+.status-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.s-pending{background:#fff3e0;color:#e65100}
+.s-progress{background:var(--pm-navy-pale);color:var(--pm-navy)}
+.s-done{background:var(--pm-teal-pale);color:var(--pm-teal)}
+
+/* PALETTE SELECTOR */
+.active-palette-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-bottom:1.5rem}
+</style>
+
+<div id="nav">
+  <div class="nav-brand"><span class="brand-dot"></span>PrograMos</div>
+  <div id="nav-guest" class="nav-right">
+    <button class="btn-nav" onclick="openModal('login')">Iniciar sesión</button>
+    <button class="btn-nav primary" onclick="openModal('register')">Registrarse</button>
+  </div>
+  <div id="nav-user" class="nav-right" style="display:none">
+    <div id="user-info"><div class="avatar-sm" id="nav-avatar">?</div><span id="nav-username"></span></div>
+    <button class="btn-nav" onclick="logout()">Salir</button>
+  </div>
+</div>
+
+<div id="tabs">
+  <div class="tab active" onclick="switchTab('inicio')" data-tab="inicio"><i class="ti ti-home" aria-hidden="true"></i> Inicio</div>
+  <div class="tab" onclick="switchTab('servicios')" data-tab="servicios"><i class="ti ti-code" aria-hidden="true"></i> Servicios</div>
+  <div class="tab" onclick="switchTab('pedidos')" data-tab="pedidos"><i class="ti ti-clipboard-list" aria-hidden="true"></i> Pedidos</div>
+  <div class="tab" onclick="switchTab('freelancers')" data-tab="freelancers"><i class="ti ti-users" aria-hidden="true"></i> Freelancers</div>
+  <div class="tab" onclick="switchTab('paleta')" data-tab="paleta"><i class="ti ti-palette" aria-hidden="true"></i> Paleta de colores</div>
+  <div class="tab" onclick="switchTab('perfil')" data-tab="perfil" id="tab-perfil" style="display:none"><i class="ti ti-user" aria-hidden="true"></i> Mi perfil</div>
+</div>
+
+<div id="content">
+
+  <!-- INICIO -->
+  <div class="section active" id="sec-inicio">
+    <div class="hero">
+      <h1>Conectamos código con oportunidades</h1>
+      <p>Publicá o contratá servicios de programación: desarrollo web, IA, mobile, data science y más.</p>
+      <div class="hero-btns">
+        <button class="btn-hero primary" onclick="switchTab('servicios')">Explorar servicios</button>
+        <button class="btn-hero secondary" onclick="openModal('publish-service')">Publicar un servicio</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-val" id="stat-svcs">0</div><div class="stat-lbl">Servicios activos</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-frees">0</div><div class="stat-lbl">Freelancers</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-orders">0</div><div class="stat-lbl">Pedidos realizados</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-cats">5</div><div class="stat-lbl">Categorías</div></div>
+    </div>
+    <div class="section-title" style="margin-bottom:.75rem">Servicios destacados</div>
+    <div class="cards-grid" id="home-cards"></div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="section" id="sec-servicios">
+    <div class="section-header">
+      <span class="section-title">Todos los servicios</span>
+      <button class="btn-publish" onclick="openModal('publish-service')"><i class="ti ti-plus" aria-hidden="true"></i> Publicar servicio</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="svc-search" placeholder="Buscar servicios..." oninput="renderServices()">
+      <select id="svc-cat" onchange="renderServices()">
+        <option value="">Todas las categorías</option>
+        <option>Desarrollo Web</option>
+        <option>IA & ML</option>
+        <option>Data Science</option>
+        <option>Mobile</option>
+        <option>UX/UI</option>
+      </select>
+      <select id="svc-sort" onchange="renderServices()">
+        <option value="newest">Más recientes</option>
+        <option value="price-asc">Precio ↑</option>
+        <option value="price-desc">Precio ↓</option>
+        <option value="rating">Mejor calificados</option>
+      </select>
+      <button onclick="renderServices()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
+    </div>
+    <div class="cards-grid" id="svc-cards"></div>
+  </div>
+
+  <!-- PEDIDOS -->
+  <div class="section" id="sec-pedidos">
+    <div class="section-header">
+      <span class="section-title">Pedidos publicados</span>
+      <button class="btn-publish" onclick="openModal('publish-order')"><i class="ti ti-plus" aria-hidden="true"></i> Publicar pedido</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="ord-search" placeholder="Buscar pedidos..." oninput="renderOrders()">
+      <select id="ord-sort" onchange="renderOrders()">
+        <option value="newest">Más recientes</option>
+        <option value="budget-desc">Mayor presupuesto</option>
+        <option value="budget-asc">Menor presupuesto</option>
+      </select>
+      <button onclick="renderOrders()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
+    </div>
+    <div id="orders-list"></div>
+  </div>
+
+  <!-- FREELANCERS -->
+  <div class="section" id="sec-freelancers">
+    <div class="section-header"><span class="section-title">Freelancers disponibles</span></div>
+    <div class="search-bar">
+      <input type="text" id="free-search" placeholder="Buscar por nombre o especialidad..." oninput="renderFreelancers()">
+      <select id="free-sort" onchange="renderFreelancers()">
+        <option value="rating">Mejor calificados</option>
+        <option value="price-asc">Tarifa ↑</option>
+        <option value="price-desc">Tarifa ↓</option>
+      </select>
+      <button onclick="renderFreelancers()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
+    </div>
+    <div class="cards-grid" id="free-cards"></div>
+  </div>
+
+  <!-- PALETA -->
+  <div class="section" id="sec-paleta">
+    <div class="section-header"><span class="section-title">Paletas de color disponibles</span></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Seleccioná una paleta para cambiar el tema visual de la plataforma.</p>
+    <div class="palette-grid" id="palette-grid"></div>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="section" id="sec-perfil">
+    <div class="section-title" style="margin-bottom:1rem">Mi perfil</div>
+    <div class="profile-box" id="profile-content"></div>
+  </div>
+
+</div>
+
+<!-- MODALS -->
+<div class="overlay" id="modal-overlay" style="display:none" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var DB = {
+  users: [
+    {id:'u1',name:'Ana Gómez',email:'ana@demo.com',pass:'1234',role:'freelancer',initials:'AG',color:'#6a1b9a'},
+    {id:'u2',name:'Marcos Ruiz',email:'marcos@demo.com',pass:'1234',role:'cliente',initials:'MR',color:'#1a237e'},
+    {id:'u3',name:'Lucia Fernández',email:'lucia@demo.com',pass:'1234',role:'freelancer',initials:'LF',color:'#006064'},
+  ],
+  freelancers: [
+    {userId:'u1',title:'Desarrolladora Full Stack & IA',desc:'7+ años construyendo apps web y modelos ML. Especialista en React, Python y FastAPI.',rate:45,rating:4.9,available:true,color:'#6a1b9a',initials:'AG'},
+    {userId:'u3',title:'Data Scientist & Visualización',desc:'Experta en análisis de datos, dashboards con Plotly y modelos predictivos con Scikit-learn.',rate:38,rating:4.7,available:true,color:'#006064',initials:'LF'},
+    {userId:'u4',title:'Desarrollador Mobile iOS/Android',desc:'Apps nativas y con React Native. Publicadas más de 12 apps en App Store y Google Play.',rate:50,rating:4.8,available:false,initials:'JT',color:'#e65100'},
+  ],
+  services: [
+    {id:'s1',userId:'u1',title:'Landing page profesional con React',desc:'Landing page moderna, responsive, optimizada para SEO con animaciones suaves.',price:120,days:5,cat:'Desarrollo Web',rating:4.9,reviews:23},
+    {id:'s2',userId:'u3',title:'Dashboard analítico interactivo',desc:'Panel de control con gráficas en tiempo real, filtros dinámicos y exportación a Excel.',price:200,days:7,cat:'Data Science',rating:4.7,reviews:15},
+    {id:'s3',userId:'u1',title:'Chatbot con GPT-4 integrado',desc:'Bot inteligente para tu sitio web con historial de conversación y entrenamiento personalizado.',price:350,days:10,cat:'IA & ML',rating:5.0,reviews:8},
+    {id:'s4',userId:'u4',title:'App mobile multiplataforma',desc:'Desarrollo de app iOS/Android con React Native, integración de APIs y notificaciones push.',price:800,days:21,cat:'Mobile',rating:4.8,reviews:31},
+    {id:'s5',userId:'u3',title:'Scraping y automatización de datos',desc:'Extracción automatizada de datos con Python/Selenium, limpieza y exportación.',price:150,days:4,cat:'Data Science',rating:4.6,reviews:19},
+    {id:'s6',userId:'u1',title:'API REST con FastAPI y PostgreSQL',desc:'Backend robusto con autenticación JWT, documentación Swagger y despliegue en Railway.',price:280,days:8,cat:'Desarrollo Web',rating:4.9,reviews:12},
+  ],
+  orders: [
+    {id:'o1',userId:'u2',title:'Necesito tienda online para productos artesanales',desc:'E-commerce con carrito, pasarela de pago y panel de admin. Presupuesto flexible.',budget:600,cat:'Desarrollo Web',date:new Date(Date.now()-86400000*2)},
+    {id:'o2',userId:'u2',title:'Modelo de predicción de ventas',desc:'Dataset de 3 años. Necesito modelo en Python con visualizaciones y reporte ejecutivo.',budget:300,cat:'Data Science',date:new Date(Date.now()-86400000*5)},
+    {id:'o3',userId:'u5',title:'Rediseño de app de gestión interna',desc:'App web existente en Angular. Necesito modernizar la UI/UX y agregar módulo de reportes.',budget:450,cat:'UX/UI',date:new Date(Date.now()-86400000)},
+  ],
+  currentUser: null
+};
+
+var PALETTES = [
+  {name:'Triádica',type:'Triádica',colors:['#1a237e','#6a1b9a','#006064','#f57f17'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#6a1b9a','violet-light':'#9c27b0','violet-pale':'#f3e5f5',teal:'#006064','teal-light':'#00838f','teal-pale':'#e0f7fa'}},
+  {name:'Complementaria',type:'Complementaria',colors:['#1a237e','#3949ab','#7b1f00','#bf360c'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#7b1f00','violet-light':'#bf360c','violet-pale':'#fbe9e7',teal:'#d84315','teal-light':'#e64a19','teal-pale':'#fce3db'}},
+  {name:'Análoga',type:'Análoga',colors:['#1a237e','#283593','#4527a0','#6a1b9a'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#4527a0','violet-light':'#512da8','violet-pale':'#ede7f6',teal:'#6a1b9a','teal-light':'#7b1fa2','teal-pale':'#f3e5f5'}},
+  {name:'Monocromática',type:'Monocromática',colors:['#0d1240','#1a237e','#3949ab','#7986cb'],css:{navy:'#0d1240','navy-light':'#1a237e','navy-pale':'#e8eaf6',violet:'#283593','violet-light':'#3949ab','violet-pale':'#c5cae9',teal:'#5c6bc0','teal-light':'#7986cb','teal-pale':'#e8eaf6'}},
+  {name:'Compl. dividida',type:'Complementaria dividida',colors:['#1a237e','#004d40','#4a148c','#e65100'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#4a148c','violet-light':'#6a1b9a','violet-pale':'#f3e5f5',teal:'#004d40','teal-light':'#00695c','teal-pale':'#e0f2f1'}},
+  {name:'Cuadrada',type:'Cuadrada (Tetrádica)',colors:['#1a237e','#880e4f','#006064','#f57f17'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#880e4f','violet-light':'#ad1457','violet-pale':'#fce4ec',teal:'#006064','teal-light':'#00838f','teal-pale':'#e0f7fa'}},
+];
+
+function applyPalette(p){
+  var r=document.documentElement.style;
+  r.setProperty('--pm-navy',p.css.navy);
+  r.setProperty('--pm-navy-light',p.css['navy-light']);
+  r.setProperty('--pm-navy-pale',p.css['navy-pale']);
+  r.setProperty('--pm-violet',p.css.violet);
+  r.setProperty('--pm-violet-light',p.css['violet-light']);
+  r.setProperty('--pm-violet-pale',p.css['violet-pale']);
+  r.setProperty('--pm-teal',p.css.teal);
+  r.setProperty('--pm-teal-light',p.css['teal-light']);
+  r.setProperty('--pm-teal-pale',p.css['teal-pale']);
+  renderPalettes();
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(function(el){el.classList.toggle('active',el.dataset.tab===t)});
+  document.querySelectorAll('.section').forEach(function(el){el.classList.toggle('active',el.id==='sec-'+t)});
+  if(t==='servicios')renderServices();
+  if(t==='pedidos')renderOrders();
+  if(t==='freelancers')renderFreelancers();
+  if(t==='paleta')renderPalettes();
+  if(t==='perfil')renderProfile();
+  if(t==='inicio')renderHome();
+}
+
+function catClass(c){
+  if(c==='Desarrollo Web')return'cat-dev';
+  if(c==='IA & ML')return'cat-ia';
+  if(c==='Data Science')return'cat-data';
+  if(c==='Mobile')return'cat-mobile';
+  return'cat-ux';
+}
+
+function serviceCard(s,showBtn){
+  var f=DB.freelancers.find(function(x){return x.userId===s.userId})||{initials:'?',color:'#888'};
+  var u=DB.users.find(function(x){return x.id===s.userId})||{name:'Freelancer'};
+  var stars='★'.repeat(Math.floor(s.rating))+(s.rating%1>=.5?'½':'');
+  return '<div class="card"><div class="card-top"><span class="cat-badge '+catClass(s.cat)+'">'+s.cat+'</span><span class="price-tag">$'+s.price+' USD</span></div><h3>'+s.title+'</h3><p class="card-desc">'+s.desc+'</p><p style="font-size:11px;color:var(--muted);margin-bottom:.6rem"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i> Entrega en '+s.days+' días</p><div class="card-footer"><div class="freelancer-row"><div class="avatar" style="background:'+f.color+'">'+f.initials+'</div><span class="freelancer-name">'+u.name+'</span></div><div style="display:flex;align-items:center;gap:6px"><span class="stars">'+stars+'</span><span class="rating-val">'+s.rating+'</span>'+(showBtn?'<button class="btn-contratar" onclick="contratar(\''+s.id+'\')">Contratar</button>':'')+'</div></div></div>';
+}
+
+function renderHome(){
+  document.getElementById('stat-svcs').textContent=DB.services.length;
+  document.getElementById('stat-frees').textContent=DB.freelancers.length;
+  document.getElementById('stat-orders').textContent=DB.orders.length;
+  var top=DB.services.slice(0,3);
+  document.getElementById('home-cards').innerHTML=top.map(function(s){return serviceCard(s,true)}).join('');
+}
+
+function renderServices(){
+  var q=(document.getElementById('svc-search').value||'').toLowerCase();
+  var cat=document.getElementById('svc-cat').value;
+  var sort=document.getElementById('svc-sort').value;
+  var list=DB.services.filter(function(s){
+    return(!q||(s.title+s.desc).toLowerCase().includes(q))&&(!cat||s.cat===cat);
+  });
+  if(sort==='price-asc')list.sort(function(a,b){return a.price-b.price});
+  else if(sort==='price-desc')list.sort(function(a,b){return b.price-a.price});
+  else if(sort==='rating')list.sort(function(a,b){return b.rating-a.rating});
+  else list.sort(function(a,b){return b.id>a.id?1:-1});
+  document.getElementById('svc-cards').innerHTML=list.length?list.map(function(s){return serviceCard(s,true)}).join(''):'<p style="color:var(--muted);font-size:14px">No se encontraron servicios.</p>';
+}
+
+function renderOrders(){
+  var q=(document.getElementById('ord-search').value||'').toLowerCase();
+  var sort=document.getElementById('ord-sort').value;
+  var list=DB.orders.filter(function(o){return!q||(o.title+o.desc).toLowerCase().includes(q)});
+  if(sort==='budget-desc')list.sort(function(a,b){return b.budget-a.budget});
+  else if(sort==='budget-asc')list.sort(function(a,b){return a.budget-b.budget});
+  else list.sort(function(a,b){return b.date-a.date});
+  document.getElementById('orders-list').innerHTML=list.map(function(o){
+    var u=DB.users.find(function(x){return x.id===o.userId})||{name:'Cliente'};
+    var d=o.date instanceof Date?o.date.toLocaleDateString('es-AR'):o.date;
+    return'<div class="order-row"><div><div class="order-title">'+o.title+'</div><div class="order-meta"><span class="cat-badge '+catClass(o.cat)+'" style="font-size:10px">'+o.cat+'</span> · Publicado por '+u.name+' · '+d+'</div><div class="order-meta" style="margin-top:4px;font-size:12px">'+o.desc+'</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:600;color:var(--pm-teal)">$'+o.budget+' USD</div><button class="btn-contratar" style="margin-top:6px" onclick="offerOrder(\''+o.id+'\')">Aplicar</button></div></div>';
+  }).join('')||'<p style="color:var(--muted);font-size:14px">No hay pedidos publicados.</p>';
+}
+
+function renderFreelancers(){
+  var q=(document.getElementById('free-search').value||'').toLowerCase();
+  var sort=document.getElementById('free-sort').value;
+  var list=DB.freelancers.filter(function(f){
+    var u=DB.users.find(function(x){return x.id===f.userId})||{name:''};
+    return!q||(u.name+f.title+f.desc).toLowerCase().includes(q);
+  }).slice();
+  if(sort==='price-asc')list.sort(function(a,b){return a.rate-b.rate});
+  else if(sort==='price-desc')list.sort(function(a,b){return b.rate-a.rate});
+  else list.sort(function(a,b){return b.rating-a.rating});
+  document.getElementById('free-cards').innerHTML=list.map(function(f){
+    var u=DB.users.find(function(x){return x.id===f.userId})||{name:'Freelancer'};
+    var avBadge=f.available?'<span style="background:var(--pm-teal-pale);color:var(--pm-teal);padding:2px 8px;border-radius:12px;font-size:11px">Disponible</span>':'<span style="background:#f5f5f5;color:#9e9e9e;padding:2px 8px;border-radius:12px;font-size:11px">No disponible</span>';
+    return'<div class="card"><div class="card-top"><div class="freelancer-row"><div class="avatar" style="background:'+f.color+';width:32px;height:32px;font-size:13px">'+f.initials+'</div><div><div style="font-size:13px;font-weight:500">'+u.name+'</div><div style="font-size:11px;color:var(--muted)">'+f.title+'</div></div></div>'+avBadge+'</div><p class="card-desc" style="margin:.7rem 0">'+f.desc+'</p><div class="card-footer"><span style="font-size:13px;font-weight:600;color:var(--pm-navy)">$'+f.rate+' /hr</span><div style="display:flex;align-items:center;gap:4px"><span class="stars">★</span><span style="font-size:13px;font-weight:500">'+f.rating+'</span></div></div></div>';
+  }).join('')||'<p style="color:var(--muted);font-size:14px">No se encontraron freelancers.</p>';
+}
+
+function renderPalettes(){
+  document.getElementById('palette-grid').innerHTML=PALETTES.map(function(p,i){
+    var swatches=p.colors.map(function(c){return'<div class="swatch-block" style="background:'+c+'"></div>'}).join('');
+    return'<div class="palette-card" style="cursor:pointer" onclick="applyPalette(PALETTES['+i+'])"><div class="palette-swatch" style="background:#f0f0f0">'+swatches+'</div><div class="palette-info"><div class="palette-name">'+p.name+'</div><div class="palette-type">'+p.type+'</div><div class="palette-hex">'+p.colors.join(' · ')+'</div></div></div>';
+  }).join('');
+}
+
+function renderProfile(){
+  if(!DB.currentUser){document.getElementById('profile-content').innerHTML='<p style="color:var(--muted);font-size:14px">Iniciá sesión para ver tu perfil.</p>';return}
+  var u=DB.currentUser;
+  var f=DB.freelancers.find(function(x){return x.userId===u.id});
+  var myServices=DB.services.filter(function(s){return s.userId===u.id});
+  var myOrders=DB.orders.filter(function(o){return o.userId===u.id});
+  var html='<div class="profile-header"><div class="avatar-lg" style="background:'+(u.color||'#6a1b9a')+'">'+u.initials+'</div><div><div class="profile-name">'+u.name+'</div><div class="profile-role">'+u.role+'</div></div></div>';
+  html+='<div class="profile-detail"><i class="ti ti-mail" aria-hidden="true"></i>'+u.email+'</div>';
+  if(f){html+='<div class="profile-detail"><i class="ti ti-briefcase" aria-hidden="true"></i>'+f.title+'</div><div class="profile-detail"><i class="ti ti-currency-dollar" aria-hidden="true"></i>Tarifa: $'+f.rate+'/hr</div><div class="profile-detail"><i class="ti ti-star" aria-hidden="true"></i>Calificación: '+f.rating+'</div>';}
+  html+='<hr class="divider">';
+  if(myServices.length){html+='<div style="font-size:13px;font-weight:500;margin-bottom:.5rem">Mis servicios publicados ('+myServices.length+')</div>';myServices.forEach(function(s){html+='<div style="font-size:13px;padding:.5rem 0;border-bottom:0.5px solid var(--border)">'+s.title+' · <span style="color:var(--pm-teal);font-weight:500">$'+s.price+'</span></div>';});}
+  if(myOrders.length){html+='<div style="font-size:13px;font-weight:500;margin:1rem 0 .5rem">Mis pedidos ('+myOrders.length+')</div>';myOrders.forEach(function(o){html+='<div style="font-size:13px;padding:.5rem 0;border-bottom:0.5px solid var(--border)">'+o.title+' · <span style="color:var(--pm-teal);font-weight:500">$'+o.budget+' presupuesto</span></div>';});}
+  document.getElementById('profile-content').innerHTML=html;
+}
+
+function openModal(type){
+  var box=document.getElementById('modal-box');
+  var html='';
+  if(type==='login'){
+    html='<div class="modal-title">Iniciar sesión</div>';
+    html+='<div class="form-group"><label>Email</label><input type="email" id="l-email" placeholder="tu@email.com"></div>';
+    html+='<div class="form-group"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••"></div>';
+    html+='<p style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Demo: ana@demo.com / 1234 o marcos@demo.com / 1234</p>';
+    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doLogin()">Entrar</button></div>';
+  } else if(type==='register'){
+    html='<div class="modal-title">Crear cuenta</div>';
+    html+='<div class="form-group"><label>Nombre completo</label><input type="text" id="r-name" placeholder="Tu nombre"></div>';
+    html+='<div class="form-group"><label>Email</label><input type="email" id="r-email" placeholder="tu@email.com"></div>';
+    html+='<div class="form-group"><label>Contraseña</label><input type="password" id="r-pass" placeholder="Mínimo 4 caracteres"></div>';
+    html+='<div class="form-group"><label>Tipo de cuenta</label><select id="r-role"><option value="cliente">Cliente (busco servicios)</option><option value="freelancer">Freelancer (ofrezco servicios)</option></select></div>';
+    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doRegister()">Registrarme</button></div>';
+  } else if(type==='publish-service'){
+    if(!DB.currentUser){showToast('Iniciá sesión primero');openModal('login');return}
+    html='<div class="modal-title">Publicar servicio</div>';
+    html+='<div class="form-group"><label>Título del servicio</label><input type="text" id="ps-title" placeholder="Ej: App React + Backend Node.js"></div>';
+    html+='<div class="form-group"><label>Descripción</label><textarea id="ps-desc" placeholder="Describí qué incluye el servicio..."></textarea></div>';
+    html+='<div class="form-group"><label>Categoría</label><select id="ps-cat"><option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option></select></div>';
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem"><div class="form-group"><label>Precio (USD)</label><input type="number" id="ps-price" placeholder="150"></div><div class="form-group"><label>Días de entrega</label><input type="number" id="ps-days" placeholder="7"></div></div>';
+    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doPublishService()">Publicar</button></div>';
+  } else if(type==='publish-order'){
+    if(!DB.currentUser){showToast('Iniciá sesión primero');openModal('login');return}
+    html='<div class="modal-title">Publicar pedido</div>';
+    html+='<div class="form-group"><label>¿Qué necesitás?</label><input type="text" id="po-title" placeholder="Ej: Necesito un sistema de inventario"></div>';
+    html+='<div class="form-group"><label>Detalles del proyecto</label><textarea id="po-desc" placeholder="Describí el alcance, tecnologías preferidas, plazos..."></textarea></div>';
+    html+='<div class="form-group"><label>Categoría</label><select id="po-cat"><option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option></select></div>';
+    html+='<div class="form-group"><label>Presupuesto (USD)</label><input type="number" id="po-budget" placeholder="500"></div>';
+    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doPublishOrder()">Publicar</button></div>';
+  }
+  box.innerHTML=html;
+  document.getElementById('modal-overlay').style.display='flex';
+}
+
+function closeModal(){document.getElementById('modal-overlay').style.display='none'}
+function closeModalOutside(e){if(e.target.id==='modal-overlay')closeModal()}
+
+function doLogin(){
+  var email=document.getElementById('l-email').value.trim();
+  var pass=document.getElementById('l-pass').value;
+  var u=DB.users.find(function(x){return x.email===email&&x.pass===pass});
+  if(!u){showToast('Email o contraseña incorrectos');return}
+  DB.currentUser=u;
+  updateNavUser();
+  closeModal();
+  showToast('¡Bienvenido/a, '+u.name.split(' ')[0]+'!');
+  document.getElementById('tab-perfil').style.display='';
+}
+
+function doRegister(){
+  var name=document.getElementById('r-name').value.trim();
+  var email=document.getElementById('r-email').value.trim();
+  var pass=document.getElementById('r-pass').value;
+  var role=document.getElementById('r-role').value;
+  if(!name||!email||!pass){showToast('Completá todos los campos');return}
+  if(DB.users.find(function(x){return x.email===email})){showToast('Ese email ya está registrado');return}
+  var parts=name.split(' ');
+  var initials=(parts[0][0]+(parts[1]?parts[1][0]:'')).toUpperCase();
+  var colors=['#1a237e','#6a1b9a','#006064','#c62828','#00695c'];
+  var newU={id:'u'+Date.now(),name:name,email:email,pass:pass,role:role,initials:initials,color:colors[Math.floor(Math.random()*colors.length)]};
+  DB.users.push(newU);
+  DB.currentUser=newU;
+  updateNavUser();
+  closeModal();
+  showToast('¡Cuenta creada! Bienvenido/a, '+name.split(' ')[0]);
+  document.getElementById('tab-perfil').style.display='';
+}
+
+function doPublishService(){
+  var t=document.getElementById('ps-title').value.trim();
+  var d=document.getElementById('ps-desc').value.trim();
+  var c=document.getElementById('ps-cat').value;
+  var p=parseInt(document.getElementById('ps-price').value)||0;
+  var days=parseInt(document.getElementById('ps-days').value)||7;
+  if(!t||!d){showToast('Completá título y descripción');return}
+  DB.services.unshift({id:'s'+Date.now(),userId:DB.currentUser.id,title:t,desc:d,cat:c,price:p,days:days,rating:0,reviews:0});
+  closeModal();
+  showToast('¡Servicio publicado!');
+  renderHome();
+}
+
+function doPublishOrder(){
+  var t=document.getElementById('po-title').value.trim();
+  var d=document.getElementById('po-desc').value.trim();
+  var c=document.getElementById('po-cat').value;
+  var b=parseInt(document.getElementById('po-budget').value)||0;
+  if(!t||!d){showToast('Completá título y descripción');return}
+  DB.orders.unshift({id:'o'+Date.now(),userId:DB.currentUser.id,title:t,desc:d,cat:c,budget:b,date:new Date()});
+  closeModal();
+  showToast('¡Pedido publicado!');
+  renderOrders();
+}
+
+function contratar(id){
+  if(!DB.currentUser){showToast('Iniciá sesión para contratar');return}
+  var s=DB.services.find(function(x){return x.id===id});
+  showToast('Solicitud enviada por "'+s.title+'"');
+}
+
+function offerOrder(id){
+  if(!DB.currentUser){showToast('Iniciá sesión para aplicar');return}
+  var o=DB.orders.find(function(x){return x.id===id});
+  showToast('Aplicación enviada para "'+o.title+'"');
+}
+
+function logout(){DB.currentUser=null;updateNavUser();document.getElementById('tab-perfil').style.display='none';showToast('Sesión cerrada')}
+
+function updateNavUser(){
+  var u=DB.currentUser;
+  document.getElementById('nav-guest').style.display=u?'none':'flex';
+  document.getElementById('nav-user').style.display=u?'flex':'none';
+  if(u){document.getElementById('nav-avatar').textContent=u.initials;document.getElementById('nav-username').textContent=u.name.split(' ')[0];}
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2500);
+}
+
+renderHome();
+renderPalettes();
+</script>
