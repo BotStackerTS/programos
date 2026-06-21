@@ -1,548 +1,1399 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrograMos — Elite Tech Freelance Network</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    /* ==========================================
+       SISTEMA DE DISEÑO MODERN SAAS Vb-2026
+       ========================================== */
+    :root[data-theme="light"] {
+      --primary-hue: 235;
+      --primary-sat: 65%;
+      --primary-lig: 55%;
+      
+      --bg-base: #f9fafb;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f3f4f6;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-focus: rgba(0, 0, 0, 0.16);
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --text-inverse: #ffffff;
+      
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+      --hero-gradient: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    }
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --pm-navy:#1a237e;--pm-navy-light:#3949ab;--pm-navy-pale:#e8eaf6;
-  --pm-violet:#6a1b9a;--pm-violet-light:#9c27b0;--pm-violet-pale:#f3e5f5;
-  --pm-teal:#006064;--pm-teal-light:#00838f;--pm-teal-pale:#e0f7fa;
-  --pm-gold:#f57f17;--pm-gold-light:#ffb300;
-  --bg:#f8f9ff;--card:#fff;--border:rgba(26,35,126,0.12);
-  --text:#1a1a2e;--muted:#5c6080;--radius:10px;
-}
-body{font-family:var(--font-sans,'system-ui',sans-serif);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+    :root[data-theme="dark"] {
+      --primary-hue: 245;
+      --primary-sat: 75%;
+      --primary-lig: 65%;
+      
+      --bg-base: #030712;
+      --bg-surface: #0b0f19;
+      --bg-surface-elevated: #111827;
+      --border-color: rgba(255, 255, 255, 0.06);
+      --border-focus: rgba(255, 255, 255, 0.15);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-inverse: #030712;
+      
+      --glass-bg: rgba(11, 15, 25, 0.8);
+      --glass-border: rgba(255, 255, 255, 0.05);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+      --hero-gradient: linear-gradient(135deg, #0b0f19 0%, #111c35 50%, #070a12 100%);
+    }
 
-/* NAV */
-#nav{background:var(--pm-navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100}
-.nav-brand{color:#fff;font-weight:600;font-size:17px;letter-spacing:-0.3px;display:flex;align-items:center;gap:8px}
-.brand-dot{width:8px;height:8px;background:var(--pm-gold-light);border-radius:50%;display:inline-block}
-.nav-right{display:flex;gap:8px}
-.btn-nav{background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s}
-.btn-nav:hover{background:rgba(255,255,255,0.12)}
-.btn-nav.primary{background:var(--pm-violet-light);border-color:var(--pm-violet-light)}
-.btn-nav.primary:hover{background:var(--pm-violet)}
-#user-info{color:#fff;font-size:13px;display:flex;align-items:center;gap:8px}
-.avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--pm-violet-light);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff}
+    /* Inyección dinámica de Paletas HSL */
+    :root {
+      --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-lig));
+      --primary-hover: hsl(var(--primary-hue), var(--primary-sat), calc(var(--primary-lig) - 8%));
+      --primary-alpha: rgba(hsl(var(--primary-hue), var(--primary-sat), var(--primary-lig)), 0.12);
+      
+      --accent-violet: #8b5cf6;
+      --accent-teal: #14b8a6;
+      --accent-orange: #f97316;
+      --accent-emerald: #10b981;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-/* TABS */
-#tabs{background:#fff;border-bottom:1.5px solid var(--border);padding:0 1.5rem;display:flex;gap:2px;overflow-x:auto}
-.tab{padding:11px 18px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px}
-.tab:hover{color:var(--pm-navy)}
-.tab.active{color:var(--pm-navy);border-bottom-color:var(--pm-navy)}
-.tab i{font-size:15px}
+    /* Reset Global & Base layout */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-sans); }
+    body { background-color: var(--bg-base); color: var(--text-main); min-height: 100vh; overflow-x: hidden; font-size: 14px; -webkit-font-smoothing: antialiased; transition: background-color 0.3s, color 0.3s; }
+    input, select, textarea, button { font-family: inherit; font-size: inherit; color: inherit; outline: none; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-/* CONTENT */
-#content{padding:1.5rem;max-width:1100px;margin:0 auto}
-.section{display:none}.section.active{display:block}
+    /* Estructuras de Contenedores y Grid Mobile First */
+    .container { width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 1.25rem; }
+    .grid-responsive { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    
+    /* ==========================================
+       COMPONENTES DEL HEADER & SIDEBAR NAV
+       ========================================== */
+    #nav { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); height: 64px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; transition: var(--transition); }
+    .brand-group { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.5px; cursor: pointer; }
+    .brand-indicator { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 12px var(--primary); }
+    .nav-links { display: none; } /* Oculto en Mobile */
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    
+    /* Botonera Global Premium */
+    .btn { padding: 0.55rem 1.1rem; border-radius: var(--radius-sm); font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition); border: 1px solid transparent; font-size: 0.85rem; text-align: center; justify-content: center; }
+    .btn-primary { background: var(--primary); color: var(--text-inverse); }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(var(--primary), 0.2); }
+    .btn-secondary { background: var(--bg-surface-elevated); border-color: var(--border-color); color: var(--text-main); }
+    .btn-secondary:hover { background: var(--border-color); }
+    .btn-ghost { background: transparent; color: var(--text-muted); }
+    .btn-ghost:hover { color: var(--text-main); background: var(--border-color); }
+    .btn-icon { pading: 0.5rem; border-radius: 50%; width: 36px; height: 36px; justify-content: center; display: inline-flex; align-items: center; cursor: pointer; border: none; background: transparent; color: var(--text-main); }
+    .btn-icon:hover { background: var(--border-color); }
 
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--pm-navy) 0%,var(--pm-violet) 60%,var(--pm-teal) 100%);border-radius:14px;padding:2.5rem 2rem;color:#fff;margin-bottom:1.5rem;position:relative;overflow:hidden}
-.hero::after{content:'</>';position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:5rem;font-weight:700;opacity:.08;font-family:monospace}
-.hero h1{font-size:1.8rem;font-weight:600;margin-bottom:.5rem;letter-spacing:-0.5px}
-.hero p{opacity:.85;font-size:.95rem;max-width:480px;line-height:1.6}
-.hero-btns{margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap}
-.btn-hero{padding:9px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;border:none;transition:opacity .15s}
-.btn-hero.primary{background:#fff;color:var(--pm-navy)}
-.btn-hero.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
-.btn-hero:hover{opacity:.88}
+    /* Hamburguesa Menu Mobile */
+    .burger { display: flex; flex-direction: column; gap: 4px; cursor: pointer; border: none; background: transparent; padding: 4px; }
+    .burger span { width: 20px; height: 2px; background: var(--text-main); transition: var(--transition); }
+    .burger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;margin-bottom:1.5rem}
-.stat-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem}
-.stat-val{font-size:1.4rem;font-weight:600;color:var(--pm-navy)}
-.stat-lbl{font-size:12px;color:var(--muted);margin-top:2px}
+    /* Mobile Drawer */
+    #sidebar { position: fixed; top: 64px; left: -100%; width: 85%; max-width: 320px; height: calc(100vh - 64px); background: var(--bg-surface); border-right: 1px solid var(--border-color); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; z-index: 99; transition: var(--transition); overflow-y: auto; }
+    #sidebar.open { left: 0; box-shadow: var(--shadow-lg); }
+    .sidebar-link { padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; }
+    .sidebar-link.active, .sidebar-link:hover { color: var(--text-main); background: var(--primary-alpha); }
+    #overlay-screen { position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 98; display: none; }
 
-/* SEARCH & FILTERS */
-.search-bar{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
-.search-bar input{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff;color:var(--text)}
-.search-bar select{padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:#fff;color:var(--text);cursor:pointer}
-.search-bar button{padding:9px 16px;background:var(--pm-navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
-.search-bar button:hover{background:var(--pm-navy-light)}
+    /* ==========================================
+       TABS DE SUB-NAVEGACIÓN (DESKTOP COMPACT)
+       ========================================== */
+    #tabs-bar { background: var(--bg-surface); border-bottom: 1px solid var(--border-color); overflow-x: auto; display: flex; white-space: nowrap; }
+    .tab-item { padding: 1rem 1.25rem; font-weight: 500; font-size: 0.85rem; color: var(--text-muted); border-bottom: 2px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: var(--transition); }
+    .tab-item:hover { color: var(--text-main); }
+    .tab-item.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-alpha); }
 
-/* PALETTE BAR */
-.palette-bar{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
-.palette-bar label{font-size:12px;color:var(--muted);font-weight:500}
-.pal-btn{padding:4px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;font-size:12px;font-weight:500;transition:all .15s}
-.pal-btn:hover,.pal-btn.active{transform:scale(1.05)}
+    /* ==========================================
+       HERO SECTION ELITE
+       ========================================== */
+    .hero-wrapper { background: var(--hero-gradient); border-radius: var(--radius-md); padding: 3rem 1.5rem; color: #ffffff; margin: 1.5rem 0; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .hero-wrapper::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, rgba(var(--primary-hue), 80%, 60%, 0.15) 0%, transparent 50%); pointer-events: none; }
+    .hero-tag { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.35rem 0.75rem; border-radius: 50px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 1rem; font-weight: 600; }
+    .hero-wrapper h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1rem; max-width: 650px; }
+    .hero-wrapper p { font-size: 1rem; color: rgba(255, 255, 255, 0.75); max-width: 500px; line-height: 1.5; margin-bottom: 2rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
-/* CARDS GRID */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-.card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem;transition:box-shadow .15s;cursor:pointer}
-.card:hover{border-color:var(--pm-navy-light)}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
-.cat-badge{font-size:11px;padding:3px 9px;border-radius:12px;font-weight:500}
-.cat-dev{background:var(--pm-navy-pale);color:var(--pm-navy)}
-.cat-ia{background:var(--pm-violet-pale);color:var(--pm-violet)}
-.cat-data{background:var(--pm-teal-pale);color:var(--pm-teal)}
-.cat-mobile{background:#fff3e0;color:#e65100}
-.cat-ux{background:#e8f5e9;color:#1b5e20}
-.price-tag{font-size:14px;font-weight:600;color:var(--pm-teal)}
-.card h3{font-size:14px;font-weight:500;margin-bottom:.4rem;line-height:1.4}
-.card-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:.75rem}
-.card-footer{display:flex;align-items:center;justify-content:space-between}
-.freelancer-row{display:flex;align-items:center;gap:6px}
-.avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff}
-.freelancer-name{font-size:12px;color:var(--muted)}
-.stars{color:var(--pm-gold);font-size:12px}
-.rating-val{font-size:12px;color:var(--muted);margin-left:2px}
-.btn-contratar{padding:5px 12px;background:var(--pm-navy);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500}
-.btn-contratar:hover{background:var(--pm-navy-light)}
+    /* Global Metrics Deck */
+    .metrics-deck { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    @media (min-width: 768px) { .metrics-deck { grid-template-columns: repeat(4, 1fr); } }
+    .metric-card { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+    .metric-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--primary); opacity: 0.4; }
+    .metric-num { font-size: 1.75rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+    .metric-lbl { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; font-weight: 500; }
 
-/* SECTION HEADER */
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.section-title{font-size:1rem;font-weight:600;color:var(--text)}
-.btn-publish{padding:8px 16px;background:var(--pm-violet-light);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
-.btn-publish:hover{background:var(--pm-violet)}
+    /* ==========================================
+       FILTROS & BUSCADORES AVANZADOS
+       ========================================== */
+    .search-panel { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .search-input-group { position: relative; width: 100%; }
+    .search-input-group i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .search-input-group input { width: 100%; padding: 0.7rem 1rem 0.7rem 2.5rem; background: var(--bg-base); border: 1px solid var(--border-color); border-radius: var(--radius-sm); transition: var(--transition); color: var(--text-main); }
+    .search-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-alpha); }
+    .filter-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; width: 100%; }
+    .filter-controls select { padding: 0.65rem; background: var(--bg-base); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); cursor: pointer; transition: var(--transition); }
+    .filter-controls select:focus { border-color: var(--primary); }
 
-/* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal{background:#fff;border-radius:14px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:1.5rem}
-.modal-title{font-size:1rem;font-weight:600;margin-bottom:1.25rem;color:var(--pm-navy)}
-.form-group{margin-bottom:.9rem}
-.form-group label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:4px}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:#fff;font-family:inherit}
-.form-group textarea{resize:vertical;min-height:80px}
-.modal-footer{display:flex;gap:.5rem;justify-content:flex-end;margin-top:1rem}
-.btn-cancel{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted)}
-.btn-submit{padding:8px 18px;background:var(--pm-navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500}
-.btn-submit:hover{background:var(--pm-navy-light)}
+    /* ==========================================
+       TARJETAS DE SERVICIOS / FREELANCERS / PEDIDOS
+       ========================================== */
+    .section-view { display: none; animation: fadeIn 0.4s ease forwards; }
+    .section-view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .section-heading-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+    .section-title { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.3px; display: flex; align-items: center; gap: 0.5rem; }
 
-/* PALETTE SHOWCASE */
-.palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
-.palette-card{border-radius:12px;overflow:hidden;border:0.5px solid var(--border)}
-.palette-swatch{height:90px;display:flex;gap:4px;padding:10px}
-.swatch-block{flex:1;border-radius:6px}
-.palette-info{padding:.75rem;background:#fff}
-.palette-name{font-size:13px;font-weight:600;color:var(--text)}
-.palette-type{font-size:11px;color:var(--muted);margin-top:2px}
-.palette-hex{font-size:10px;color:var(--muted);margin-top:4px;font-family:monospace}
+    /* Card Premium Platform architecture */
+    .pm-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: var(--transition); box-shadow: var(--shadow-sm); cursor: pointer; }
+    .pm-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    
+    .card-meta-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .badge-category { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+    
+    /* Configuración de color para tags de categorías técnicas */
+    .cat-web { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+    .cat-ai { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+    .cat-data { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .cat-mobile { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+    .cat-ui { background: rgba(16, 185, 129, 0.1); color: #10b981; }
 
-/* TOAST */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--pm-navy);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
-.toast.show{opacity:1;transform:translateY(0)}
+    .card-cost { font-weight: 700; color: var(--accent-teal); font-size: 1.1rem; }
+    .card-body-title { font-size: 0.95rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.5rem; color: var(--text-main); }
+    .card-body-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    
+    .card-spec-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .card-spec-row i { font-size: 0.9rem; }
+    
+    .card-user-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 0.75rem; margin-top: auto; }
+    .user-pill { display: flex; align-items: center; gap: 0.5rem; }
+    .user-avatar { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; background: var(--primary); }
+    .user-meta-info { display: flex; flex-direction: column; }
+    .user-meta-name { font-weight: 500; font-size: 0.8rem; color: var(--text-main); }
+    .user-meta-badge { font-size: 0.65rem; color: var(--text-muted); }
+    
+    .rating-cluster { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 600; color: var(--text-main); }
+    .rating-cluster i { color: var(--accent-orange); }
 
-/* PROFILE */
-.profile-box{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.5rem;max-width:520px}
-.profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
-.avatar-lg{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;color:#fff;background:var(--pm-violet-light)}
-.profile-name{font-size:1.1rem;font-weight:600}
-.profile-role{font-size:13px;color:var(--muted)}
-.profile-detail{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;margin:.35rem 0}
-.profile-detail i{color:var(--pm-navy);font-size:15px}
-.divider{border:none;border-top:0.5px solid var(--border);margin:1rem 0}
+    /* Row layout para Pedidos / Bounties */
+    .order-item-row { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; transition: var(--transition); box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+    .order-item-row:hover { border-color: var(--primary); }
+    @media (min-width: 768px) {
+      .order-item-row { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .order-main-details { flex: 1; }
+    .order-side-actions { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 0.5rem; text-align: left; }
+    @media (min-width: 768px) { .order-side-actions { align-items: flex-end; text-align: right; } }
 
-/* ORDERS */
-.order-row{background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
-.order-title{font-size:14px;font-weight:500}
-.order-meta{font-size:12px;color:var(--muted);margin-top:3px}
-.status-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
-.s-pending{background:#fff3e0;color:#e65100}
-.s-progress{background:var(--pm-navy-pale);color:var(--pm-navy)}
-.s-done{background:var(--pm-teal-pale);color:var(--pm-teal)}
+    /* Favorite absolute marker */
+    .fav-toggle { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.15rem; color: var(--text-muted); cursor: pointer; z-index: 5; transition: var(--transition); }
+    .fav-toggle.active { color: #ef4444; }
 
-/* PALETTE SELECTOR */
-.active-palette-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-bottom:1.5rem}
-</style>
+    /* ==========================================
+       ENGINE DE PALETAS DINÁMICAS & CONFIG
+       ========================================== */
+    .color-hub-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 768px) { .color-hub-grid { grid-template-columns: 350px 1fr; } }
+    .palette-config-box { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius-md); height: fit-content; }
+    .color-pick-wrapper { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+    .native-picker { -webkit-appearance: none; border: none; width: 44px; height: 44px; border-radius: var(--radius-sm); cursor: pointer; background: transparent; }
+    .native-picker::-webkit-color-swatch-wrapper { padding: 0; }
+    .native-picker::-webkit-color-swatch { border: 1px solid var(--border-color); border-radius: var(--radius-sm); }
+    
+    .matrix-palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .palette-matrix-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); cursor: pointer; }
+    .palette-matrix-card:hover { transform: scale(1.02); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .swatch-bar-preview { height: 60px; display: flex; }
+    .swatch-unit { flex: 1; }
+    .palette-matrix-body { padding: 0.75rem; }
+    .palette-matrix-name { font-weight: 600; font-size: 0.85rem; }
+    .palette-matrix-type { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
 
-<div id="nav">
-  <div class="nav-brand"><span class="brand-dot"></span>PrograMos</div>
-  <div id="nav-guest" class="nav-right">
-    <button class="btn-nav" onclick="openModal('login')">Iniciar sesión</button>
-    <button class="btn-nav primary" onclick="openModal('register')">Registrarse</button>
+    /* ==========================================
+       SISTEMA DE CHAT / MENSAJERÍA SIMULADA
+       ========================================== */
+    .chat-layout { display: grid; grid-template-columns: 1fr; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); height: 500px; overflow: hidden; }
+    @media (min-width: 768px) { .chat-layout { grid-template-columns: 240px 1fr; } }
+    .chat-inbox-pane { border-right: 1px solid var(--border-color); display: flex; flex-direction: column; background: var(--bg-surface-elevated); }
+    .inbox-user-row { padding: 1rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; border-bottom: 1px solid var(--border-color); transition: var(--transition); }
+    .inbox-user-row:hover, .inbox-user-row.active { background: var(--bg-surface); border-left: 3px solid var(--primary); }
+    .chat-messages-pane { display: flex; flex-direction: column; height: 100%; justify-content: space-between; }
+    .chat-scrollway { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+    .chat-bubble { max-width: 75%; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; line-height: 1.4; }
+    .chat-bubble.incoming { background: var(--bg-surface-elevated); align-self: flex-start; color: var(--text-main); border-bottom-left-radius: 2px; }
+    .chat-bubble.outgoing { background: var(--primary); color: var(--text-inverse); align-self: flex-end; border-bottom-right-radius: 2px; }
+    .chat-controller { padding: 0.75rem 1rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem; background: var(--bg-surface); }
+    .chat-controller input { flex: 1; padding: 0.6rem 1rem; background: var(--bg-base); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); }
+
+    /* ==========================================
+       PERFIL & DASHBOARD SUITE
+       ========================================== */
+    .profile-layout-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 768px) { .profile-layout-grid { grid-template-columns: 320px 1fr; } }
+    .profile-side-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; height: fit-content; }
+    .profile-avatar-giant { width: 80px; height: 80px; border-radius: 50%; font-size: 2rem; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; background: var(--primary); box-shadow: 0 0 20px var(--primary-alpha); }
+    .dashboard-metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1rem; }
+    .dash-mini-card { background: var(--bg-surface-elevated); padding: 0.75rem; border-radius: var(--radius-sm); text-align: left; }
+    .dash-mini-card div:first-child { font-size: 1.15rem; font-weight: 700; color: var(--text-main); }
+    .dash-mini-card div:last-child { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+    /* ==========================================
+       MODAL SYSTEM & OVERLAYS PREMIUM
+       ========================================== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; animation: fadeOverlay 0.25s ease forwards; }
+    @keyframes fadeOverlay { from { opacity: 0; } to { opacity: 1; } }
+    .modal-container { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 1.5rem; box-shadow: var(--shadow-lg); animation: slideModal 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    @keyframes slideModal { from { transform: translateY(16px) scale(0.98); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    .modal-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .modal-title-text { font-size: 1.1rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.3px; }
+    
+    /* Formularios Avanzados */
+    .form-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    .form-group input, .form-group textarea, .form-group select { padding: 0.65rem 0.85rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); transition: var(--transition); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); background: var(--bg-surface); box-shadow: 0 0 0 3px var(--primary-alpha); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    /* ==========================================
+       TOAST SYSTEM & FOOTER
+       ========================================== */
+    #toast-notification { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; box-shadow: var(--shadow-lg); border-left: 4px solid var(--primary); z-index: 9999; pointer-events: none; opacity: 0; transform: translateY(12px); transition: var(--transition); display: flex; align-items: center; gap: 0.5rem; }
+    #toast-notification.show { opacity: 1; transform: translateY(0); }
+
+    footer { background: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 3rem 0; margin-top: 4rem; font-size: 0.8rem; color: var(--text-muted); }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+    .footer-col h4 { font-weight: 600; color: var(--text-main); margin-bottom: 0.85rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul li a:hover { color: var(--primary); }
+
+    /* ==========================================
+       RESPONSIVE BREAKPOINTS DE ESCRITORIO
+       ========================================== */
+    @media (min-width: 1024px) {
+      .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+      .burger { display: none; }
+      #sidebar { display: none; }
+      #overlay-screen { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <div class="brand-group" onclick="switchTab('inicio')">
+      <span class="brand-indicator"></span>
+      <span>PrograMos</span>
+    </div>
+    
+    <div class="nav-links">
+      <button class="btn btn-ghost" onclick="switchTab('inicio')">Inicio</button>
+      <button class="btn btn-ghost" onclick="switchTab('servicios')">Servicios</button>
+      <button class="btn btn-ghost" onclick="switchTab('pedidos')">Pedidos</button>
+      <button class="btn btn-ghost" onclick="switchTab('freelancers')">Talentos</button>
+      <button class="btn btn-ghost" onclick="switchTab('mensajes')">Mensajes</button>
+      <button class="btn btn-ghost" onclick="switchTab('paleta')"><i class="ti ti-palette"></i> Colores</button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-icon" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <i class="ti ti-sun-moon" id="theme-icon"></i>
+      </button>
+      
+      <div id="nav-guest" style="display: flex; gap: 0.5rem;">
+        <button class="btn btn-secondary" onclick="openModal('login')">Ingresar</button>
+        <button class="btn btn-primary" onclick="openModal('register')">Registrarse</button>
+      </div>
+      <div id="nav-user" style="display: none; align-items: center; gap: 0.75rem;">
+        <button class="btn btn-ghost" onclick="switchTab('perfil')" style="padding: 0.25rem 0.5rem;">
+          <div class="user-pill">
+            <div class="user-avatar" id="nav-avatar">?</div>
+            <span id="nav-username" class="user-meta-name" style="display:none; max-width: 80px; overflow: hidden; text-overflow: ellipsis;">User</span>
+          </div>
+        </button>
+        <button class="btn-icon" onclick="logout()" title="Cerrar sesión"><i class="ti ti-logout"></i></button>
+      </div>
+
+      <button class="burger" id="burger-btn" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="overlay-screen" onclick="toggleSidebar()"></div>
+
+  <aside id="sidebar">
+    <button class="sidebar-link active" data-sidebar="inicio" onclick="switchTab('inicio'); toggleSidebar();"><i class="ti ti-home"></i> Inicio</button>
+    <button class="sidebar-link" data-sidebar="servicios" onclick="switchTab('servicios'); toggleSidebar();"><i class="ti ti-code"></i> Explorar Servicios</button>
+    <button class="sidebar-link" data-sidebar="pedidos" onclick="switchTab('pedidos'); toggleSidebar();"><i class="ti ti-clipboard-list"></i> Proyectos Abiertos</button>
+    <button class="sidebar-link" data-sidebar="freelancers" onclick="switchTab('freelancers'); toggleSidebar();"><i class="ti ti-users"></i> Buscar Freelancers</button>
+    <button class="sidebar-link" data-sidebar="mensajes" onclick="switchTab('mensajes'); toggleSidebar();"><i class="ti ti-message-code"></i> Mensajes</button>
+    <button class="sidebar-link" data-sidebar="paleta" onclick="switchTab('paleta'); toggleSidebar();"><i class="ti ti-palette"></i> Generador de Temas</button>
+    <button class="sidebar-link" id="sidebar-profile-link" data-sidebar="perfil" onclick="switchTab('perfil'); toggleSidebar();" style="display:none;"><i class="ti ti-user-circle"></i> Mi Panel Experto</button>
+  </aside>
+
+  <div id="tabs-bar">
+    <div class="tab-item active" data-tab="inicio" onclick="switchTab('inicio')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="tab-item" data-tab="servicios" onclick="switchTab('servicios')"><i class="ti ti-terminal-2"></i> Servicios</div>
+    <div class="tab-item" data-tab="pedidos" onclick="switchTab('pedidos')"><i class="ti ti-receipt"></i> Proyectos</div>
+    <div class="tab-item" data-tab="freelancers" onclick="switchTab('freelancers')"><i class="ti ti-cpu"></i> Ingenieros</div>
+    <div class="tab-item" data-tab="mensajes" onclick="switchTab('mensajes')"><i class="ti ti-brand-hipchat"></i> Chat</div>
+    <div class="tab-item" data-tab="paleta" onclick="switchTab('paleta')"><i class="ti ti-color-swatch"></i> Cromática</div>
+    <div class="tab-item" id="subtab-perfil" data-tab="perfil" onclick="switchTab('perfil')" style="display:none;"><i class="ti ti-user"></i> Mi Perfil</div>
   </div>
-  <div id="nav-user" class="nav-right" style="display:none">
-    <div id="user-info"><div class="avatar-sm" id="nav-avatar">?</div><span id="nav-username"></span></div>
-    <button class="btn-nav" onclick="logout()">Salir</button>
-  </div>
-</div>
 
-<div id="tabs">
-  <div class="tab active" onclick="switchTab('inicio')" data-tab="inicio"><i class="ti ti-home" aria-hidden="true"></i> Inicio</div>
-  <div class="tab" onclick="switchTab('servicios')" data-tab="servicios"><i class="ti ti-code" aria-hidden="true"></i> Servicios</div>
-  <div class="tab" onclick="switchTab('pedidos')" data-tab="pedidos"><i class="ti ti-clipboard-list" aria-hidden="true"></i> Pedidos</div>
-  <div class="tab" onclick="switchTab('freelancers')" data-tab="freelancers"><i class="ti ti-users" aria-hidden="true"></i> Freelancers</div>
-  <div class="tab" onclick="switchTab('paleta')" data-tab="paleta"><i class="ti ti-palette" aria-hidden="true"></i> Paleta de colores</div>
-  <div class="tab" onclick="switchTab('perfil')" data-tab="perfil" id="tab-perfil" style="display:none"><i class="ti ti-user" aria-hidden="true"></i> Mi perfil</div>
-</div>
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
 
-<div id="content">
+    <div class="section-view active" id="view-inicio">
+      <div class="hero-wrapper">
+        <span class="hero-tag">SaaS Freelance Hub 2026</span>
+        <h1>Conectamos código de alta ingeniería con oportunidades globales</h1>
+        <p>Contrata ingenieros de software, expertos en Inteligencia Artificial, Data Science y DevOps verificados bajo estándares de producción industrial.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="switchTab('servicios')">Explorar Servicios</button>
+          <button class="btn btn-secondary" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25); color: #fff;" onclick="openModal('publish-service')">Ofrecer mis Servicios</button>
+        </div>
+      </div>
 
-  <!-- INICIO -->
-  <div class="section active" id="sec-inicio">
-    <div class="hero">
-      <h1>Conectamos código con oportunidades</h1>
-      <p>Publicá o contratá servicios de programación: desarrollo web, IA, mobile, data science y más.</p>
-      <div class="hero-btns">
-        <button class="btn-hero primary" onclick="switchTab('servicios')">Explorar servicios</button>
-        <button class="btn-hero secondary" onclick="openModal('publish-service')">Publicar un servicio</button>
+      <div class="metrics-deck">
+        <div class="metric-card"><div class="metric-num" id="stat-svcs">0</div><div class="metric-lbl">Servicios Activos</div></div>
+        <div class="metric-card"><div class="metric-num" id="stat-frees">0</div><div class="metric-lbl">Ingenieros Certificados</div></div>
+        <div class="metric-card"><div class="metric-num" id="stat-orders">0</div><div class="metric-lbl">Bounties Publicados</div></div>
+        <div class="metric-card"><div class="metric-num">99.4%</div><div class="metric-lbl">SLA de Entregas</div></div>
+      </div>
+
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-bolt" style="color:var(--accent-orange)"></i> Servicios de Ingeniería Destacados</h2>
+        <button class="btn btn-ghost" onclick="switchTab('servicios')">Ver catálogo completo <i class="ti ti-arrow-right"></i></button>
+      </div>
+      <div class="grid-responsive" id="home-services-grid"></div>
+    </div>
+
+    <div class="section-view" id="view-servicios">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-apps" style="color:var(--primary)"></i> Catálogo Global de Soluciones</h2>
+        <button class="btn btn-primary" onclick="openModal('publish-service')"><i class="ti ti-plus"></i> Desplegar Servicio</button>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-input-group">
+          <i class="ti ti-search"></i>
+          <input type="text" id="svc-search" placeholder="Buscar por tecnología (React, Python, FastAPI, Kubernetes...)" oninput="renderServices()">
+        </div>
+        <div class="filter-controls">
+          <select id="svc-cat" onchange="renderServices()">
+            <option value="">Todas las Áreas</option>
+            <option>Desarrollo Web</option>
+            <option>IA & ML</option>
+            <option>Data Science</option>
+            <option>Mobile</option>
+            <option>UX/UI</option>
+          </select>
+          <select id="svc-sort" onchange="renderServices()">
+            <option value="newest">Más Recientes</option>
+            <option value="price-asc">Presupuesto: Menor a Mayor</option>
+            <option value="price-desc">Presupuesto: Mayor a Menor</option>
+            <option value="rating">Máxima Reputación</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-responsive" id="svc-cards-grid"></div>
+    </div>
+
+    <div class="section-view" id="view-pedidos">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-target-arrow" style="color:var(--accent-violet)"></i> Proyectos Abiertos y Solicitudes de Código</h2>
+        <button class="btn btn-primary" onclick="openModal('publish-order')"><i class="ti ti-plus"></i> Publicar Requerimiento</button>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-input-group">
+          <i class="ti ti-search"></i>
+          <input type="text" id="ord-search" placeholder="Filtrar proyectos activos..." oninput="renderOrders()">
+        </div>
+        <div class="filter-controls">
+          <select id="ord-sort" onchange="renderOrders()">
+            <option value="newest">Más Recientes</option>
+            <option value="budget-desc">Mayor Presupuesto</option>
+            <option value="budget-asc">Menor Presupuesto</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="orders-stack-list"></div>
+    </div>
+
+    <div class="section-view" id="view-freelancers">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-shield-check" style="color:var(--accent-emerald)"></i> Staff Técnico Verificado</h2>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-input-group">
+          <i class="ti ti-search"></i>
+          <input type="text" id="free-search" placeholder="Filtrar por stack, nombre o especialidad..." oninput="renderFreelancers()">
+        </div>
+        <div class="filter-controls">
+          <select id="free-sort" onchange="renderFreelancers()">
+            <option value="rating">Mejor Calificados</option>
+            <option value="price-asc">Tarifa Horaria: Menor a Mayor</option>
+            <option value="price-desc">Tarifa Horaria: Mayor a Menor</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-responsive" id="free-cards-grid"></div>
+    </div>
+
+    <div class="section-view" id="view-mensajes">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-messages" style="color:var(--primary)"></i> Consola de Mensajería Encriptada</h2>
+      </div>
+      <div class="chat-layout">
+        <div class="chat-inbox-pane" id="chat-users-list">
+          </div>
+        <div class="chat-messages-pane">
+          <div class="chat-scrollway" id="chat-screen-flow">
+            <p style="color:var(--text-muted); text-align:center; margin:auto; font-size:0.85rem;">Selecciona una conversación del panel de control izquierdo para iniciar el puente de comunicación técnica.</p>
+          </div>
+          <div class="chat-controller">
+            <input type="text" id="chat-input-field" placeholder="Escribe un mensaje de arquitectura o propuesta técnica..." onkeypress="if(event.key==='Enter') sendSimulatedMessage()">
+            <button class="btn btn-primary" onclick="sendSimulatedMessage()"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="stats">
-      <div class="stat-card"><div class="stat-val" id="stat-svcs">0</div><div class="stat-lbl">Servicios activos</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-frees">0</div><div class="stat-lbl">Freelancers</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-orders">0</div><div class="stat-lbl">Pedidos realizados</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-cats">5</div><div class="stat-lbl">Categorías</div></div>
+
+    <div class="section-view" id="view-paleta">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-palette" style="color:var(--primary)"></i> Generador Algorítmico de Esquemas de Color</h2>
+        <button class="btn btn-secondary" onclick="resetDefaultPalette()">Restablecer Predeterminado</button>
+      </div>
+      
+      <div class="color-hub-grid">
+        <div class="palette-config-box">
+          <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:0.5rem;">Selector de Color Semilla</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Elige la longitud de onda base. Nuestro motor generará matrices armonizadas en tiempo real calculando intervalos HSL óptimos.</p>
+          <div class="color-pick-wrapper">
+            <input type="color" id="seed-picker" class="native-picker" value="#3949ab" onchange="processDynamicColorSeed(this.value)">
+            <div>
+              <div style="font-weight:600; font-size:0.85rem;" id="lbl-seed-hex">#3949ab</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Inyección HSL computada</div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:1rem;">Armonías de Color Computadas Disponibles</h3>
+          <div class="matrix-palette-grid" id="theme-matrix-container">
+            </div>
+        </div>
+      </div>
     </div>
-    <div class="section-title" style="margin-bottom:.75rem">Servicios destacados</div>
-    <div class="cards-grid" id="home-cards"></div>
+
+    <div class="section-view" id="view-perfil">
+      <div class="section-heading-bar">
+        <h2 class="section-title"><i class="ti ti-shield-lock" style="color:var(--primary)"></i> Panel de Control del Profesional</h2>
+      </div>
+      <div class="profile-layout-grid" id="profile-render-root">
+        </div>
+    </div>
+
+  </main>
+
+  <div class="modal-overlay" id="global-modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal-container" id="global-modal-box"></div>
   </div>
 
-  <!-- SERVICIOS -->
-  <div class="section" id="sec-servicios">
-    <div class="section-header">
-      <span class="section-title">Todos los servicios</span>
-      <button class="btn-publish" onclick="openModal('publish-service')"><i class="ti ti-plus" aria-hidden="true"></i> Publicar servicio</button>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="svc-search" placeholder="Buscar servicios..." oninput="renderServices()">
-      <select id="svc-cat" onchange="renderServices()">
-        <option value="">Todas las categorías</option>
-        <option>Desarrollo Web</option>
-        <option>IA & ML</option>
-        <option>Data Science</option>
-        <option>Mobile</option>
-        <option>UX/UI</option>
-      </select>
-      <select id="svc-sort" onchange="renderServices()">
-        <option value="newest">Más recientes</option>
-        <option value="price-asc">Precio ↑</option>
-        <option value="price-desc">Precio ↓</option>
-        <option value="rating">Mejor calificados</option>
-      </select>
-      <button onclick="renderServices()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
-    </div>
-    <div class="cards-grid" id="svc-cards"></div>
+  <div id="toast-notification">
+    <i class="ti ti-info-circle" style="color:var(--primary)"></i>
+    <span id="toast-text-content">Notificación de sistema</span>
   </div>
 
-  <!-- PEDIDOS -->
-  <div class="section" id="sec-pedidos">
-    <div class="section-header">
-      <span class="section-title">Pedidos publicados</span>
-      <button class="btn-publish" onclick="openModal('publish-order')"><i class="ti ti-plus" aria-hidden="true"></i> Publicar pedido</button>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Plataforma</h4>
+          <ul>
+            <li><a href="#" onclick="switchTab('servicios')">Explorar Código</a></li>
+            <li><a href="#" onclick="switchTab('freelancers')">Staff de Talentos</a></li>
+            <li><a href="#" onclick="switchTab('pedidos')">Bounties Disponibles</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ecosistema</h4>
+          <ul>
+            <li><a href="#">Infraestructura</a></li>
+            <li><a href="#">Verificación de Reputación</a></li>
+            <li><a href="#">SLA Corporativo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Gobernanza</h4>
+          <ul>
+            <li><a href="#">Seguridad del Código</a></li>
+            <li><a href="#">Privacidad de Datos</a></li>
+            <li><a href="#">Términos y Licencias</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="brand-group" style="margin-bottom: 0.5rem;">
+            <span class="brand-indicator"></span>
+            <span style="color:var(--text-main)">PrograMos Inc.</span>
+          </div>
+          <p style="line-height: 1.4;">Infraestructura de software global para la contratación y coordinación de ingeniería técnica distribuida.</p>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border-color); padding-top:1.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>© 2026 PrograMos Platform. Todos los derechos reservados bajo licencia MIT.</div>
+        <div style="display:flex; gap:1rem; font-size:1.1rem;">
+          <a href="#"><i class="ti ti-brand-github"></i></a>
+          <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+          <a href="#"><i class="ti ti-brand-slack"></i></a>
+        </div>
+      </div>
     </div>
-    <div class="search-bar">
-      <input type="text" id="ord-search" placeholder="Buscar pedidos..." oninput="renderOrders()">
-      <select id="ord-sort" onchange="renderOrders()">
-        <option value="newest">Más recientes</option>
-        <option value="budget-desc">Mayor presupuesto</option>
-        <option value="budget-asc">Menor presupuesto</option>
-      </select>
-      <button onclick="renderOrders()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
-    </div>
-    <div id="orders-list"></div>
-  </div>
+  </footer>
 
-  <!-- FREELANCERS -->
-  <div class="section" id="sec-freelancers">
-    <div class="section-header"><span class="section-title">Freelancers disponibles</span></div>
-    <div class="search-bar">
-      <input type="text" id="free-search" placeholder="Buscar por nombre o especialidad..." oninput="renderFreelancers()">
-      <select id="free-sort" onchange="renderFreelancers()">
-        <option value="rating">Mejor calificados</option>
-        <option value="price-asc">Tarifa ↑</option>
-        <option value="price-desc">Tarifa ↓</option>
-      </select>
-      <button onclick="renderFreelancers()"><i class="ti ti-search" aria-hidden="true"></i> Buscar</button>
-    </div>
-    <div class="cards-grid" id="free-cards"></div>
-  </div>
+  <script>
+    // BASE DE DATOS INTEGRAL (Preservando entidades originales con extensiones SaaS)
+    var DB = {
+      users: [
+        {id:'u1',name:'Ana Gómez',email:'ana@demo.com',pass:'1234',role:'freelancer',initials:'AG',color:'#8b5cf6', seniority:'Senior Developer', speed:'4h'},
+        {id:'u2',name:'Marcos Ruiz',email:'marcos@demo.com',pass:'1234',role:'cliente',initials:'MR',color:'#3b82f6', seniority:'Product Owner', speed:'Instantáneo'},
+        {id:'u3',name:'Lucia Fernández',email:'lucia@demo.com',pass:'1234',role:'freelancer',initials:'LF',color:'#14b8a6', seniority:'Expert Architect', speed:'2h'},
+      ],
+      freelancers: [
+        {userId:'u1',title:'Desarrolladora Full Stack & IA',desc:'7+ años construyendo apps web y modelos ML. Especialista en React, Python y FastAPI.',rate:45,rating:4.9,available:true,color:'#8b5cf6',initials:'AG', completed: 42, success:'98%'},
+        {userId:'u3',title:'Data Scientist & Visualización',desc:'Experta en análisis de datos, dashboards con Plotly y modelos predictivos con Scikit-learn.',rate:38,rating:4.7,available:true,color:'#14b8a6',initials:'LF', completed: 29, success:'96%'},
+        {userId:'u4',title:'Desarrollador Mobile iOS/Android',desc:'Apps nativas y con React Native. Publicadas más de 12 apps en App Store y Google Play.',rate:50,rating:4.8,available:false,initials:'JT',color:'#f97316', completed: 61, success:'100%'},
+      ],
+      services: [
+        {id:'s1',userId:'u1',title:'Landing page profesional con React',desc:'Landing page moderna, responsive, optimizada para SEO con animaciones suaves y arquitectura modular de componentes escalables.',price:120,days:5,cat:'Desarrollo Web',rating:4.9,reviews:23, tags:['React', 'Vite', 'Tailwind']},
+        {id:'s2',userId:'u3',title:'Dashboard analítico interactivo',desc:'Panel de control con gráficas en tiempo real, filtros dinámicos y exportación automatizada a formatos analíticos como Excel y Apache Parquet.',price:200,days:7,cat:'Data Science',rating:4.7,reviews:15, tags:['Python', 'Pandas', 'Plotly']},
+        {id:'s3',userId:'u1',title:'Chatbot con GPT-4 integrado',desc:'Bot inteligente para tu sitio web corporativo con historial de conversación persistente, memoria vectorial adaptativa y entrenamiento personalizado mediante RAG.',price:350,days:10,cat:'IA & ML',rating:5.0,reviews:8, tags:['OpenAI', 'LangChain', 'FastAPI']},
+        {id:'s4',userId:'u4',title:'App mobile multiplataforma',desc:'Desarrollo de app iOS/Android con React Native, optimización nativa de hilos, integración fluida de APIs de terceros y pasarela de notificaciones push.',price:800,days:21,cat:'Mobile',rating:4.8,reviews:31, tags:['React Native', 'Expo', 'Firebase']},
+        {id:'s5',userId:'u3',title:'Scraping y automatización de datos',desc:'Extracción estructurada y masiva de datos con frameworks Python y Selenium, evasión de proxies avanzados, limpieza concurrente y modelado relacional.',price:150,days:4,cat:'Data Science',rating:4.6,reviews:19, tags:['Python', 'Selenium', 'BeautifulSoup']},
+        {id:'s6',userId:'u1',title:'API REST con FastAPI y PostgreSQL',desc:'Backend de alta resiliencia con autenticación JWT, hashing simétrico, documentación Swagger automatizada y pipeline de despliegue automatizado en Railway.',price:280,days:8,cat:'Desarrollo Web',rating:4.9,reviews:12, tags:['FastAPI', 'PostgreSQL', 'Docker']},
+      ],
+      orders: [
+        {id:'o1',userId:'u2',title:'Necesito tienda online para productos artesanales',desc:'E-commerce distribuido con persistencia en carrito, pasarela de pago internacional integrada y panel administrativo robusto.',budget:600,cat:'Desarrollo Web',date:new Date(Date.now()-86400000*2)},
+        {id:'o2',userId:'u2',title:'Modelo de predicción de ventas estructurado',desc:'Dataset de series de tiempo de 3 años. Necesito modelo predictivo desarrollado en Python con reporte ejecutivo adjunto.',budget:300,cat:'Data Science',date:new Date(Date.now()-86400000*5)},
+        {id:'o3',userId:'u5',title:'Rediseño modular de app de gestión interna',desc:'App corporativa en producción construida en Angular. Requiero modernizar UI/UX adaptando directivas accesibles y refactorizando el módulo de reportes.',budget:450,cat:'UX/UI',date:new Date(Date.now()-86400000)},
+      ],
+      currentUser: null,
+      favorites: [],
+      chatActiveUser: 'u1',
+      chatHistory: [
+        {from: 'u1', to: 'me', text: 'Hola, revisé los requerimientos de arquitectura del microservicio. ¿Qué motor relacional prefieres usar?'},
+        {from: 'me', to: 'u1', text: 'Excelente. Preferimos PostgreSQL con aislamiento de transacciones estricto.'}
+      ]
+    };
 
-  <!-- PALETA -->
-  <div class="section" id="sec-paleta">
-    <div class="section-header"><span class="section-title">Paletas de color disponibles</span></div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Seleccioná una paleta para cambiar el tema visual de la plataforma.</p>
-    <div class="palette-grid" id="palette-grid"></div>
-  </div>
+    // MOTOR DE CONFIGURACIÓN CROMÁTICA HEX/HSL AVANZADA
+    var CURRENT_GENERATED_PALETTES = [];
+    
+    function hexToHsl(hex) {
+      hex = hex.replace(/^#/, '');
+      let r = parseInt(hex.substring(0,2), 16) / 255;
+      let g = parseInt(hex.substring(2,4), 16) / 255;
+      let b = parseInt(hex.substring(4,6), 16) / 255;
+      let max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      if (max === min) { h = s = 0; } 
+      else {
+        let d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+    }
 
-  <!-- PERFIL -->
-  <div class="section" id="sec-perfil">
-    <div class="section-title" style="margin-bottom:1rem">Mi perfil</div>
-    <div class="profile-box" id="profile-content"></div>
-  </div>
+    function processDynamicColorSeed(hexCode) {
+      document.getElementById('lbl-seed-hex').textContent = hexCode.toUpperCase();
+      let hsl = hexToHsl(hexCode);
+      let h = hsl.h;
+      
+      // Construcción algorítmica de tipologías cromáticas basadas en la semilla
+      CURRENT_GENERATED_PALETTES = [
+        { name: 'Monocromática Core', type: 'Monocromática', hue: h, sat: hsl.s, lig: hsl.l },
+        { name: 'Complementaria Vector', type: 'Complementaria', hue: (h + 180) % 360, sat: hsl.s, lig: hsl.l },
+        { name: 'Análoga Avanzada', type: 'Análoga', hue: (h + 30) % 360, sat: hsl.s, lig: hsl.l },
+        { name: 'Triádica de Producción', type: 'Triádica', hue: (h + 120) % 360, sat: hsl.s, lig: hsl.l },
+        { name: 'Split Complementaria', type: 'Complementaria Dividida', hue: (h + 150) % 360, sat: hsl.s, lig: hsl.l },
+        { name: 'Tetrádica Pro', type: 'Cuadrada (Tetrádica)', hue: (h + 90) % 360, sat: hsl.s, lig: hsl.l }
+      ];
+      renderThemeMatrix();
+    }
 
-</div>
+    function applyTargetDynamicTheme(index) {
+      let pal = CURRENT_GENERATED_PALETTES[index];
+      if(!pal) return;
+      let root = document.documentElement.style;
+      root.setProperty('--primary-hue', pal.hue);
+      root.setProperty('--primary-sat', pal.sat + '%');
+      root.setProperty('--primary-lig', pal.lig + '%');
+      
+      localStorage.setItem('pm-preferred-hue', pal.hue);
+      localStorage.setItem('pm-preferred-sat', pal.sat);
+      localStorage.setItem('pm-preferred-lig', pal.lig);
+      
+      showToast('Esquema visual "' + pal.name + '" inyectado con éxito.');
+    }
 
-<!-- MODALS -->
-<div class="overlay" id="modal-overlay" style="display:none" onclick="closeModalOutside(event)">
-  <div class="modal" id="modal-box"></div>
-</div>
+    function resetDefaultPalette() {
+      let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      let root = document.documentElement.style;
+      root.setProperty('--primary-hue', isDark ? '245' : '235');
+      root.setProperty('--primary-sat', isDark ? '75%' : '65%');
+      root.setProperty('--primary-lig', isDark ? '65%' : '55%');
+      
+      localStorage.removeItem('pm-preferred-hue');
+      localStorage.removeItem('pm-preferred-sat');
+      localStorage.removeItem('pm-preferred-lig');
+      
+      document.getElementById('seed-picker').value = isDark ? '#5c6bc0' : '#3949ab';
+      processDynamicColorSeed(document.getElementById('seed-picker').value);
+      showToast('Variables CSS restauradas a los valores base.');
+    }
 
-<div class="toast" id="toast"></div>
+    function renderThemeMatrix() {
+      let html = '';
+      CURRENT_GENERATED_PALETTES.forEach((p, idx) => {
+        html += `
+          <div class="palette-matrix-card" onclick="applyTargetDynamicTheme(${idx})">
+            <div class="swatch-bar-preview">
+              <div class="swatch-unit" style="background: hsl(${p.hue}, ${p.sat}%, ${p.lig}%)"></div>
+              <div class="swatch-unit" style="background: hsl(${p.hue}, ${p.sat}%, ${p.lig - 12}%)"></div>
+              <div class="swatch-unit" style="background: rgba(hsl(${p.hue}, ${p.sat}%, ${p.lig}%), 0.15)"></div>
+            </div>
+            <div class="palette-matrix-body">
+              <div class="palette-matrix-name">${p.name}</div>
+              <div class="palette-matrix-type">${p.type} — HSL(${p.hue}°, ${p.sat}%, ${p.lig}%)</div>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('theme-matrix-container').innerHTML = html;
+    }
 
-<script>
-var DB = {
-  users: [
-    {id:'u1',name:'Ana Gómez',email:'ana@demo.com',pass:'1234',role:'freelancer',initials:'AG',color:'#6a1b9a'},
-    {id:'u2',name:'Marcos Ruiz',email:'marcos@demo.com',pass:'1234',role:'cliente',initials:'MR',color:'#1a237e'},
-    {id:'u3',name:'Lucia Fernández',email:'lucia@demo.com',pass:'1234',role:'freelancer',initials:'LF',color:'#006064'},
-  ],
-  freelancers: [
-    {userId:'u1',title:'Desarrolladora Full Stack & IA',desc:'7+ años construyendo apps web y modelos ML. Especialista en React, Python y FastAPI.',rate:45,rating:4.9,available:true,color:'#6a1b9a',initials:'AG'},
-    {userId:'u3',title:'Data Scientist & Visualización',desc:'Experta en análisis de datos, dashboards con Plotly y modelos predictivos con Scikit-learn.',rate:38,rating:4.7,available:true,color:'#006064',initials:'LF'},
-    {userId:'u4',title:'Desarrollador Mobile iOS/Android',desc:'Apps nativas y con React Native. Publicadas más de 12 apps en App Store y Google Play.',rate:50,rating:4.8,available:false,initials:'JT',color:'#e65100'},
-  ],
-  services: [
-    {id:'s1',userId:'u1',title:'Landing page profesional con React',desc:'Landing page moderna, responsive, optimizada para SEO con animaciones suaves.',price:120,days:5,cat:'Desarrollo Web',rating:4.9,reviews:23},
-    {id:'s2',userId:'u3',title:'Dashboard analítico interactivo',desc:'Panel de control con gráficas en tiempo real, filtros dinámicos y exportación a Excel.',price:200,days:7,cat:'Data Science',rating:4.7,reviews:15},
-    {id:'s3',userId:'u1',title:'Chatbot con GPT-4 integrado',desc:'Bot inteligente para tu sitio web con historial de conversación y entrenamiento personalizado.',price:350,days:10,cat:'IA & ML',rating:5.0,reviews:8},
-    {id:'s4',userId:'u4',title:'App mobile multiplataforma',desc:'Desarrollo de app iOS/Android con React Native, integración de APIs y notificaciones push.',price:800,days:21,cat:'Mobile',rating:4.8,reviews:31},
-    {id:'s5',userId:'u3',title:'Scraping y automatización de datos',desc:'Extracción automatizada de datos con Python/Selenium, limpieza y exportación.',price:150,days:4,cat:'Data Science',rating:4.6,reviews:19},
-    {id:'s6',userId:'u1',title:'API REST con FastAPI y PostgreSQL',desc:'Backend robusto con autenticación JWT, documentación Swagger y despliegue en Railway.',price:280,days:8,cat:'Desarrollo Web',rating:4.9,reviews:12},
-  ],
-  orders: [
-    {id:'o1',userId:'u2',title:'Necesito tienda online para productos artesanales',desc:'E-commerce con carrito, pasarela de pago y panel de admin. Presupuesto flexible.',budget:600,cat:'Desarrollo Web',date:new Date(Date.now()-86400000*2)},
-    {id:'o2',userId:'u2',title:'Modelo de predicción de ventas',desc:'Dataset de 3 años. Necesito modelo en Python con visualizaciones y reporte ejecutivo.',budget:300,cat:'Data Science',date:new Date(Date.now()-86400000*5)},
-    {id:'o3',userId:'u5',title:'Rediseño de app de gestión interna',desc:'App web existente en Angular. Necesito modernizar la UI/UX y agregar módulo de reportes.',budget:450,cat:'UX/UI',date:new Date(Date.now()-86400000)},
-  ],
-  currentUser: null
-};
+    // INTERRUPTOR INTEGRAL DE DARK/LIGHT MODE
+    function toggleTheme() {
+      let current = document.documentElement.getAttribute('data-theme');
+      let next = (current === 'dark') ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('pm-theme-mode', next);
+      
+      let icon = document.getElementById('theme-icon');
+      if(next === 'dark') { icon.className = 'ti ti-moon'; } 
+      else { icon.className = 'ti ti-sun'; }
+      
+      if(!localStorage.getItem('pm-preferred-hue')) {
+        let root = document.documentElement.style;
+        root.setProperty('--primary-hue', next === 'dark' ? '245' : '235');
+        root.setProperty('--primary-sat', next === 'dark' ? '75%' : '65%');
+        root.setProperty('--primary-lig', next === 'dark' ? '65%' : '55%');
+      }
+    }
 
-var PALETTES = [
-  {name:'Triádica',type:'Triádica',colors:['#1a237e','#6a1b9a','#006064','#f57f17'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#6a1b9a','violet-light':'#9c27b0','violet-pale':'#f3e5f5',teal:'#006064','teal-light':'#00838f','teal-pale':'#e0f7fa'}},
-  {name:'Complementaria',type:'Complementaria',colors:['#1a237e','#3949ab','#7b1f00','#bf360c'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#7b1f00','violet-light':'#bf360c','violet-pale':'#fbe9e7',teal:'#d84315','teal-light':'#e64a19','teal-pale':'#fce3db'}},
-  {name:'Análoga',type:'Análoga',colors:['#1a237e','#283593','#4527a0','#6a1b9a'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#4527a0','violet-light':'#512da8','violet-pale':'#ede7f6',teal:'#6a1b9a','teal-light':'#7b1fa2','teal-pale':'#f3e5f5'}},
-  {name:'Monocromática',type:'Monocromática',colors:['#0d1240','#1a237e','#3949ab','#7986cb'],css:{navy:'#0d1240','navy-light':'#1a237e','navy-pale':'#e8eaf6',violet:'#283593','violet-light':'#3949ab','violet-pale':'#c5cae9',teal:'#5c6bc0','teal-light':'#7986cb','teal-pale':'#e8eaf6'}},
-  {name:'Compl. dividida',type:'Complementaria dividida',colors:['#1a237e','#004d40','#4a148c','#e65100'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#4a148c','violet-light':'#6a1b9a','violet-pale':'#f3e5f5',teal:'#004d40','teal-light':'#00695c','teal-pale':'#e0f2f1'}},
-  {name:'Cuadrada',type:'Cuadrada (Tetrádica)',colors:['#1a237e','#880e4f','#006064','#f57f17'],css:{navy:'#1a237e','navy-light':'#3949ab','navy-pale':'#e8eaf6',violet:'#880e4f','violet-light':'#ad1457','violet-pale':'#fce4ec',teal:'#006064','teal-light':'#00838f','teal-pale':'#e0f7fa'}},
-];
+    // MANEJO DE VISTAS (TABS & SIDEBAR)
+    function switchTab(viewId) {
+      document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+      let targetView = document.getElementById('view-' + viewId);
+      if(targetView) targetView.classList.add('active');
 
-function applyPalette(p){
-  var r=document.documentElement.style;
-  r.setProperty('--pm-navy',p.css.navy);
-  r.setProperty('--pm-navy-light',p.css['navy-light']);
-  r.setProperty('--pm-navy-pale',p.css['navy-pale']);
-  r.setProperty('--pm-violet',p.css.violet);
-  r.setProperty('--pm-violet-light',p.css['violet-light']);
-  r.setProperty('--pm-violet-pale',p.css['violet-pale']);
-  r.setProperty('--pm-teal',p.css.teal);
-  r.setProperty('--pm-teal-light',p.css['teal-light']);
-  r.setProperty('--pm-teal-pale',p.css['teal-pale']);
-  renderPalettes();
-}
+      document.querySelectorAll('.tab-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.tab === viewId);
+      });
+      document.querySelectorAll('.sidebar-link').forEach(el => {
+        el.classList.toggle('active', el.dataset.sidebar === viewId);
+      });
 
-function switchTab(t){
-  document.querySelectorAll('.tab').forEach(function(el){el.classList.toggle('active',el.dataset.tab===t)});
-  document.querySelectorAll('.section').forEach(function(el){el.classList.toggle('active',el.id==='sec-'+t)});
-  if(t==='servicios')renderServices();
-  if(t==='pedidos')renderOrders();
-  if(t==='freelancers')renderFreelancers();
-  if(t==='paleta')renderPalettes();
-  if(t==='perfil')renderProfile();
-  if(t==='inicio')renderHome();
-}
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
-function catClass(c){
-  if(c==='Desarrollo Web')return'cat-dev';
-  if(c==='IA & ML')return'cat-ia';
-  if(c==='Data Science')return'cat-data';
-  if(c==='Mobile')return'cat-mobile';
-  return'cat-ux';
-}
+      // Carga perezosa bajo demanda de contextos de datos
+      if(viewId === 'inicio') renderHome();
+      if(viewId === 'servicios') renderServices();
+      if(viewId === 'pedidos') renderOrders();
+      if(viewId === 'freelancers') renderFreelancers();
+      if(viewId === 'mensajes') renderMessagesUI();
+      if(viewId === 'perfil') renderProfile();
+    }
 
-function serviceCard(s,showBtn){
-  var f=DB.freelancers.find(function(x){return x.userId===s.userId})||{initials:'?',color:'#888'};
-  var u=DB.users.find(function(x){return x.id===s.userId})||{name:'Freelancer'};
-  var stars='★'.repeat(Math.floor(s.rating))+(s.rating%1>=.5?'½':'');
-  return '<div class="card"><div class="card-top"><span class="cat-badge '+catClass(s.cat)+'">'+s.cat+'</span><span class="price-tag">$'+s.price+' USD</span></div><h3>'+s.title+'</h3><p class="card-desc">'+s.desc+'</p><p style="font-size:11px;color:var(--muted);margin-bottom:.6rem"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i> Entrega en '+s.days+' días</p><div class="card-footer"><div class="freelancer-row"><div class="avatar" style="background:'+f.color+'">'+f.initials+'</div><span class="freelancer-name">'+u.name+'</span></div><div style="display:flex;align-items:center;gap:6px"><span class="stars">'+stars+'</span><span class="rating-val">'+s.rating+'</span>'+(showBtn?'<button class="btn-contratar" onclick="contratar(\''+s.id+'\')">Contratar</button>':'')+'</div></div></div>';
-}
+    function toggleSidebar() {
+      let side = document.getElementById('sidebar');
+      let over = document.getElementById('overlay-screen');
+      let btn = document.getElementById('burger-btn');
+      side.classList.toggle('open');
+      btn.classList.toggle('open');
+      over.style.display = side.classList.contains('open') ? 'block' : 'none';
+    }
 
-function renderHome(){
-  document.getElementById('stat-svcs').textContent=DB.services.length;
-  document.getElementById('stat-frees').textContent=DB.freelancers.length;
-  document.getElementById('stat-orders').textContent=DB.orders.length;
-  var top=DB.services.slice(0,3);
-  document.getElementById('home-cards').innerHTML=top.map(function(s){return serviceCard(s,true)}).join('');
-}
+    // HELPERS UTILITARIOS DE RENDERIZADO VISUAL
+    function getCategoryBadgeClass(cat) {
+      if(cat === 'Desarrollo Web') return 'cat-web';
+      if(cat === 'IA & ML') return 'cat-ai';
+      if(cat === 'Data Science') return 'cat-data';
+      if(cat === 'Mobile') return 'cat-mobile';
+      return 'cat-ui';
+    }
 
-function renderServices(){
-  var q=(document.getElementById('svc-search').value||'').toLowerCase();
-  var cat=document.getElementById('svc-cat').value;
-  var sort=document.getElementById('svc-sort').value;
-  var list=DB.services.filter(function(s){
-    return(!q||(s.title+s.desc).toLowerCase().includes(q))&&(!cat||s.cat===cat);
-  });
-  if(sort==='price-asc')list.sort(function(a,b){return a.price-b.price});
-  else if(sort==='price-desc')list.sort(function(a,b){return b.price-a.price});
-  else if(sort==='rating')list.sort(function(a,b){return b.rating-a.rating});
-  else list.sort(function(a,b){return b.id>a.id?1:-1});
-  document.getElementById('svc-cards').innerHTML=list.length?list.map(function(s){return serviceCard(s,true)}).join(''):'<p style="color:var(--muted);font-size:14px">No se encontraron servicios.</p>';
-}
+    function toggleFavorite(id, event) {
+      event.stopPropagation();
+      let idx = DB.favorites.indexOf(id);
+      if(idx > -1) {
+        DB.favorites.splice(idx, 1);
+        showToast('Elemento removido de tus marcadores guardados.');
+      } else {
+        DB.favorites.push(id);
+        showToast('Guardado en favoritos del ecosistema.');
+      }
+      // Re-renderizado reactivo rápido según contexto
+      if(document.getElementById('view-servicios').classList.contains('active')) renderServices();
+      else if(document.getElementById('view-inicio').classList.contains('active')) renderHome();
+    }
 
-function renderOrders(){
-  var q=(document.getElementById('ord-search').value||'').toLowerCase();
-  var sort=document.getElementById('ord-sort').value;
-  var list=DB.orders.filter(function(o){return!q||(o.title+o.desc).toLowerCase().includes(q)});
-  if(sort==='budget-desc')list.sort(function(a,b){return b.budget-a.budget});
-  else if(sort==='budget-asc')list.sort(function(a,b){return a.budget-b.budget});
-  else list.sort(function(a,b){return b.date-a.date});
-  document.getElementById('orders-list').innerHTML=list.map(function(o){
-    var u=DB.users.find(function(x){return x.id===o.userId})||{name:'Cliente'};
-    var d=o.date instanceof Date?o.date.toLocaleDateString('es-AR'):o.date;
-    return'<div class="order-row"><div><div class="order-title">'+o.title+'</div><div class="order-meta"><span class="cat-badge '+catClass(o.cat)+'" style="font-size:10px">'+o.cat+'</span> · Publicado por '+u.name+' · '+d+'</div><div class="order-meta" style="margin-top:4px;font-size:12px">'+o.desc+'</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:600;color:var(--pm-teal)">$'+o.budget+' USD</div><button class="btn-contratar" style="margin-top:6px" onclick="offerOrder(\''+o.id+'\')">Aplicar</button></div></div>';
-  }).join('')||'<p style="color:var(--muted);font-size:14px">No hay pedidos publicados.</p>';
-}
+    // CONSTRUCCIÓN DE COMPONENTES CORE DE TARJETAS (SaaS COMPLIANT)
+    function buildServiceCardMarkup(s, displayActionBtn) {
+      let isFav = DB.favorites.includes(s.id);
+      let author = DB.freelancers.find(x => x.userId === s.userId) || { initials: '?', color: '#6b7280', success: '100%' };
+      let userObj = DB.users.find(x => x.id === s.userId) || { name: 'Ingeniero Externo', seniority: 'Expert Tech' };
+      let starIcons = '★'.repeat(Math.floor(s.rating)) + (s.rating % 1 >= 0.5 ? '½' : '');
+      let tagsHtml = (s.tags || ['Tech']).map(t => `<span style="font-size:10px; background:var(--bg-surface-elevated); padding:2px 6px; border-radius:4px; font-weight:500; border:1px solid var(--border-color);">${t}</span>`).join(' ');
 
-function renderFreelancers(){
-  var q=(document.getElementById('free-search').value||'').toLowerCase();
-  var sort=document.getElementById('free-sort').value;
-  var list=DB.freelancers.filter(function(f){
-    var u=DB.users.find(function(x){return x.id===f.userId})||{name:''};
-    return!q||(u.name+f.title+f.desc).toLowerCase().includes(q);
-  }).slice();
-  if(sort==='price-asc')list.sort(function(a,b){return a.rate-b.rate});
-  else if(sort==='price-desc')list.sort(function(a,b){return b.rate-a.rate});
-  else list.sort(function(a,b){return b.rating-a.rating});
-  document.getElementById('free-cards').innerHTML=list.map(function(f){
-    var u=DB.users.find(function(x){return x.id===f.userId})||{name:'Freelancer'};
-    var avBadge=f.available?'<span style="background:var(--pm-teal-pale);color:var(--pm-teal);padding:2px 8px;border-radius:12px;font-size:11px">Disponible</span>':'<span style="background:#f5f5f5;color:#9e9e9e;padding:2px 8px;border-radius:12px;font-size:11px">No disponible</span>';
-    return'<div class="card"><div class="card-top"><div class="freelancer-row"><div class="avatar" style="background:'+f.color+';width:32px;height:32px;font-size:13px">'+f.initials+'</div><div><div style="font-size:13px;font-weight:500">'+u.name+'</div><div style="font-size:11px;color:var(--muted)">'+f.title+'</div></div></div>'+avBadge+'</div><p class="card-desc" style="margin:.7rem 0">'+f.desc+'</p><div class="card-footer"><span style="font-size:13px;font-weight:600;color:var(--pm-navy)">$'+f.rate+' /hr</span><div style="display:flex;align-items:center;gap:4px"><span class="stars">★</span><span style="font-size:13px;font-weight:500">'+f.rating+'</span></div></div></div>';
-  }).join('')||'<p style="color:var(--muted);font-size:14px">No se encontraron freelancers.</p>';
-}
+      return `
+        <div class="pm-card">
+          <button class="fav-toggle ${isFav ? 'active' : ''}" onclick="toggleFavorite('${s.id}', event)" title="Guardar favorito">
+            <i class="ti ti-bookmark${isFav ? '-filled' : ''}"></i>
+          </button>
+          
+          <div>
+            <div class="card-meta-header">
+              <span class="badge-category ${getCategoryBadgeClass(s.cat)}">${s.cat}</span>
+              <span class="card-cost">$${s.price} USD</span>
+            </div>
+            <h3 class="card-body-title">${s.title}</h3>
+            <p class="card-desc-box card-body-desc">${s.desc}</p>
+            <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:1rem;">${tagsHtml}</div>
+            
+            <div class="card-spec-row">
+              <span><i class="ti ti-clock"></i> SLA: ${s.days} días</span>
+              <span><i class="ti ti-refresh"></i> Soporte Incluido</span>
+            </div>
+          </div>
 
-function renderPalettes(){
-  document.getElementById('palette-grid').innerHTML=PALETTES.map(function(p,i){
-    var swatches=p.colors.map(function(c){return'<div class="swatch-block" style="background:'+c+'"></div>'}).join('');
-    return'<div class="palette-card" style="cursor:pointer" onclick="applyPalette(PALETTES['+i+'])"><div class="palette-swatch" style="background:#f0f0f0">'+swatches+'</div><div class="palette-info"><div class="palette-name">'+p.name+'</div><div class="palette-type">'+p.type+'</div><div class="palette-hex">'+p.colors.join(' · ')+'</div></div></div>';
-  }).join('');
-}
+          <div class="card-user-footer">
+            <div class="user-pill">
+              <div class="user-avatar" style="background:${author.color}">${author.initials}</div>
+              <div class="user-meta-info">
+                <span class="user-meta-name">${userObj.name}</span>
+                <span class="user-meta-badge">${userObj.seniority} · Jiff:${author.success}</span>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+              <div class="rating-cluster">
+                <i class="ti ti-star-filled"></i>
+                <span>${s.rating}</span>
+                <span style="color:var(--text-muted); font-weight:400; font-size:0.7rem;">(${s.reviews})</span>
+              </div>
+              ${displayActionBtn ? `<button class="btn btn-primary" style="padding:4px 10px; font-size:0.75rem;" onclick="executeHireContract('${s.id}', event)">Contratar</button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
-function renderProfile(){
-  if(!DB.currentUser){document.getElementById('profile-content').innerHTML='<p style="color:var(--muted);font-size:14px">Iniciá sesión para ver tu perfil.</p>';return}
-  var u=DB.currentUser;
-  var f=DB.freelancers.find(function(x){return x.userId===u.id});
-  var myServices=DB.services.filter(function(s){return s.userId===u.id});
-  var myOrders=DB.orders.filter(function(o){return o.userId===u.id});
-  var html='<div class="profile-header"><div class="avatar-lg" style="background:'+(u.color||'#6a1b9a')+'">'+u.initials+'</div><div><div class="profile-name">'+u.name+'</div><div class="profile-role">'+u.role+'</div></div></div>';
-  html+='<div class="profile-detail"><i class="ti ti-mail" aria-hidden="true"></i>'+u.email+'</div>';
-  if(f){html+='<div class="profile-detail"><i class="ti ti-briefcase" aria-hidden="true"></i>'+f.title+'</div><div class="profile-detail"><i class="ti ti-currency-dollar" aria-hidden="true"></i>Tarifa: $'+f.rate+'/hr</div><div class="profile-detail"><i class="ti ti-star" aria-hidden="true"></i>Calificación: '+f.rating+'</div>';}
-  html+='<hr class="divider">';
-  if(myServices.length){html+='<div style="font-size:13px;font-weight:500;margin-bottom:.5rem">Mis servicios publicados ('+myServices.length+')</div>';myServices.forEach(function(s){html+='<div style="font-size:13px;padding:.5rem 0;border-bottom:0.5px solid var(--border)">'+s.title+' · <span style="color:var(--pm-teal);font-weight:500">$'+s.price+'</span></div>';});}
-  if(myOrders.length){html+='<div style="font-size:13px;font-weight:500;margin:1rem 0 .5rem">Mis pedidos ('+myOrders.length+')</div>';myOrders.forEach(function(o){html+='<div style="font-size:13px;padding:.5rem 0;border-bottom:0.5px solid var(--border)">'+o.title+' · <span style="color:var(--pm-teal);font-weight:500">$'+o.budget+' presupuesto</span></div>';});}
-  document.getElementById('profile-content').innerHTML=html;
-}
+    // FLUJOS OPERATIVOS DEL DATA-ENGINE
+    function renderHome() {
+      document.getElementById('stat-svcs').textContent = DB.services.length;
+      document.getElementById('stat-frees').textContent = DB.freelancers.length;
+      document.getElementById('stat-orders').textContent = DB.orders.length;
+      
+      let sample = DB.services.slice(0, 3);
+      document.getElementById('home-services-grid').innerHTML = sample.map(s => buildServiceCardMarkup(s, true)).join('');
+    }
 
-function openModal(type){
-  var box=document.getElementById('modal-box');
-  var html='';
-  if(type==='login'){
-    html='<div class="modal-title">Iniciar sesión</div>';
-    html+='<div class="form-group"><label>Email</label><input type="email" id="l-email" placeholder="tu@email.com"></div>';
-    html+='<div class="form-group"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••"></div>';
-    html+='<p style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Demo: ana@demo.com / 1234 o marcos@demo.com / 1234</p>';
-    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doLogin()">Entrar</button></div>';
-  } else if(type==='register'){
-    html='<div class="modal-title">Crear cuenta</div>';
-    html+='<div class="form-group"><label>Nombre completo</label><input type="text" id="r-name" placeholder="Tu nombre"></div>';
-    html+='<div class="form-group"><label>Email</label><input type="email" id="r-email" placeholder="tu@email.com"></div>';
-    html+='<div class="form-group"><label>Contraseña</label><input type="password" id="r-pass" placeholder="Mínimo 4 caracteres"></div>';
-    html+='<div class="form-group"><label>Tipo de cuenta</label><select id="r-role"><option value="cliente">Cliente (busco servicios)</option><option value="freelancer">Freelancer (ofrezco servicios)</option></select></div>';
-    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doRegister()">Registrarme</button></div>';
-  } else if(type==='publish-service'){
-    if(!DB.currentUser){showToast('Iniciá sesión primero');openModal('login');return}
-    html='<div class="modal-title">Publicar servicio</div>';
-    html+='<div class="form-group"><label>Título del servicio</label><input type="text" id="ps-title" placeholder="Ej: App React + Backend Node.js"></div>';
-    html+='<div class="form-group"><label>Descripción</label><textarea id="ps-desc" placeholder="Describí qué incluye el servicio..."></textarea></div>';
-    html+='<div class="form-group"><label>Categoría</label><select id="ps-cat"><option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option></select></div>';
-    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem"><div class="form-group"><label>Precio (USD)</label><input type="number" id="ps-price" placeholder="150"></div><div class="form-group"><label>Días de entrega</label><input type="number" id="ps-days" placeholder="7"></div></div>';
-    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doPublishService()">Publicar</button></div>';
-  } else if(type==='publish-order'){
-    if(!DB.currentUser){showToast('Iniciá sesión primero');openModal('login');return}
-    html='<div class="modal-title">Publicar pedido</div>';
-    html+='<div class="form-group"><label>¿Qué necesitás?</label><input type="text" id="po-title" placeholder="Ej: Necesito un sistema de inventario"></div>';
-    html+='<div class="form-group"><label>Detalles del proyecto</label><textarea id="po-desc" placeholder="Describí el alcance, tecnologías preferidas, plazos..."></textarea></div>';
-    html+='<div class="form-group"><label>Categoría</label><select id="po-cat"><option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option></select></div>';
-    html+='<div class="form-group"><label>Presupuesto (USD)</label><input type="number" id="po-budget" placeholder="500"></div>';
-    html+='<div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-submit" onclick="doPublishOrder()">Publicar</button></div>';
-  }
-  box.innerHTML=html;
-  document.getElementById('modal-overlay').style.display='flex';
-}
+    function renderServices() {
+      let q = (document.getElementById('svc-search').value || '').toLowerCase();
+      let cat = document.getElementById('svc-cat').value;
+      let sort = document.getElementById('svc-sort').value;
+      
+      let filtered = DB.services.filter(s => {
+        return (!q || (s.title + s.desc).toLowerCase().includes(q)) && (!cat || s.cat === cat);
+      });
 
-function closeModal(){document.getElementById('modal-overlay').style.display='none'}
-function closeModalOutside(e){if(e.target.id==='modal-overlay')closeModal()}
+      if(sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+      else if(sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+      else if(sort === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+      else filtered.sort((a,b) => b.id > a.id ? 1 : -1);
 
-function doLogin(){
-  var email=document.getElementById('l-email').value.trim();
-  var pass=document.getElementById('l-pass').value;
-  var u=DB.users.find(function(x){return x.email===email&&x.pass===pass});
-  if(!u){showToast('Email o contraseña incorrectos');return}
-  DB.currentUser=u;
-  updateNavUser();
-  closeModal();
-  showToast('¡Bienvenido/a, '+u.name.split(' ')[0]+'!');
-  document.getElementById('tab-perfil').style.display='';
-}
+      let targetGrid = document.getElementById('svc-cards-grid');
+      if(filtered.length) {
+        targetGrid.innerHTML = filtered.map(s => buildServiceCardMarkup(s, true)).join('');
+      } else {
+        targetGrid.innerHTML = `<p style="grid-column:1/-1; color:var(--text-muted); padding:2rem 0; text-align:center;">Ningún microservicio coincide con el stack tecnológico de filtrado.</p>`;
+      }
+    }
 
-function doRegister(){
-  var name=document.getElementById('r-name').value.trim();
-  var email=document.getElementById('r-email').value.trim();
-  var pass=document.getElementById('r-pass').value;
-  var role=document.getElementById('r-role').value;
-  if(!name||!email||!pass){showToast('Completá todos los campos');return}
-  if(DB.users.find(function(x){return x.email===email})){showToast('Ese email ya está registrado');return}
-  var parts=name.split(' ');
-  var initials=(parts[0][0]+(parts[1]?parts[1][0]:'')).toUpperCase();
-  var colors=['#1a237e','#6a1b9a','#006064','#c62828','#00695c'];
-  var newU={id:'u'+Date.now(),name:name,email:email,pass:pass,role:role,initials:initials,color:colors[Math.floor(Math.random()*colors.length)]};
-  DB.users.push(newU);
-  DB.currentUser=newU;
-  updateNavUser();
-  closeModal();
-  showToast('¡Cuenta creada! Bienvenido/a, '+name.split(' ')[0]);
-  document.getElementById('tab-perfil').style.display='';
-}
+    function renderOrders() {
+      let q = (document.getElementById('ord-search').value || '').toLowerCase();
+      let sort = document.getElementById('ord-sort').value;
+      
+      let filtered = DB.orders.filter(o => !q || (o.title + o.desc).toLowerCase().includes(q));
 
-function doPublishService(){
-  var t=document.getElementById('ps-title').value.trim();
-  var d=document.getElementById('ps-desc').value.trim();
-  var c=document.getElementById('ps-cat').value;
-  var p=parseInt(document.getElementById('ps-price').value)||0;
-  var days=parseInt(document.getElementById('ps-days').value)||7;
-  if(!t||!d){showToast('Completá título y descripción');return}
-  DB.services.unshift({id:'s'+Date.now(),userId:DB.currentUser.id,title:t,desc:d,cat:c,price:p,days:days,rating:0,reviews:0});
-  closeModal();
-  showToast('¡Servicio publicado!');
-  renderHome();
-}
+      if(sort === 'budget-desc') filtered.sort((a,b) => b.budget - a.budget);
+      else if(sort === 'budget-asc') filtered.sort((a,b) => a.budget - b.budget);
+      else filtered.sort((a,b) => b.date - a.date);
 
-function doPublishOrder(){
-  var t=document.getElementById('po-title').value.trim();
-  var d=document.getElementById('po-desc').value.trim();
-  var c=document.getElementById('po-cat').value;
-  var b=parseInt(document.getElementById('po-budget').value)||0;
-  if(!t||!d){showToast('Completá título y descripción');return}
-  DB.orders.unshift({id:'o'+Date.now(),userId:DB.currentUser.id,title:t,desc:d,cat:c,budget:b,date:new Date()});
-  closeModal();
-  showToast('¡Pedido publicado!');
-  renderOrders();
-}
+      let stackContainer = document.getElementById('orders-stack-list');
+      if(filtered.length) {
+        stackContainer.innerHTML = filtered.map(o => {
+          let u = DB.users.find(x => x.id === o.userId) || { name: 'Cliente Enterprise' };
+          let dateStr = o.date instanceof Date ? o.date.toLocaleDateString('es-AR') : o.date;
+          return `
+            <div class="order-item-row">
+              <div class="order-main-details">
+                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;">
+                  <span class="badge-category ${getCategoryBadgeClass(o.cat)}">${o.cat}</span>
+                  <span style="font-size:0.75rem; color:var(--text-muted);">Por ${u.name} · Publicado: ${dateStr}</span>
+                </div>
+                <h3 style="font-size:1rem; font-weight:600; margin-bottom:0.25rem;">${o.title}</h3>
+                <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${o.desc}</p>
+              </div>
+              <div class="order-side-actions">
+                <div style="font-size:1.2rem; font-weight:700; color:var(--accent-teal);">$${o.budget} USD</div>
+                <button class="btn btn-primary" style="padding:5px 12px; font-size:0.75rem; width:100%;" onclick="executeApplyBounty('${o.id}')">Aplicar Propuesta</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        stackContainer.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding:2rem 0;">No se registran solicitudes estructuradas de código en la cola.</p>`;
+      }
+    }
 
-function contratar(id){
-  if(!DB.currentUser){showToast('Iniciá sesión para contratar');return}
-  var s=DB.services.find(function(x){return x.id===id});
-  showToast('Solicitud enviada por "'+s.title+'"');
-}
+    function renderFreelancers() {
+      let q = (document.getElementById('free-search').value || '').toLowerCase();
+      let sort = document.getElementById('free-sort').value;
+      
+      let filtered = DB.freelancers.filter(f => {
+        let u = DB.users.find(x => x.id === f.userId) || { name: '' };
+        return !q || (u.name + f.title + f.desc).toLowerCase().includes(q);
+      });
 
-function offerOrder(id){
-  if(!DB.currentUser){showToast('Iniciá sesión para aplicar');return}
-  var o=DB.orders.find(function(x){return x.id===id});
-  showToast('Aplicación enviada para "'+o.title+'"');
-}
+      if(sort === 'price-asc') filtered.sort((a,b) => a.rate - b.rate);
+      else if(sort === 'price-desc') filtered.sort((a,b) => b.rate - a.rate);
+      else filtered.sort((a,b) => b.rating - a.rating);
 
-function logout(){DB.currentUser=null;updateNavUser();document.getElementById('tab-perfil').style.display='none';showToast('Sesión cerrada')}
+      let grid = document.getElementById('free-cards-grid');
+      if(filtered.length) {
+        grid.innerHTML = filtered.map(f => {
+          let u = DB.users.find(x => x.id === f.userId) || { name: 'Desarrollador Core', seniority:'Ingeniero Core' };
+          let availabilityBadge = f.available 
+            ? `<span style="background:rgba(16,185,129,0.1); color:var(--accent-emerald); font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:50px; text-transform:uppercase;">Disponible On-Demand</span>`
+            : `<span style="background:var(--border-color); color:var(--text-muted); font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:50px; text-transform:uppercase;">Asignado</span>`;
+          
+          return `
+            <div class="pm-card" onclick="openDirectChat('${f.userId}')">
+              <div>
+                <div class="card-meta-header" style="align-items:center;">
+                  <div class="user-pill">
+                    <div class="user-avatar" style="background:${f.color || 'var(--primary)'}">${f.initials}</div>
+                    <div>
+                      <div style="font-weight:600; font-size:0.85rem;">${u.name}</div>
+                      <div style="font-size:0.7rem; color:var(--text-muted);">${u.seniority || 'Core Specialist'}</div>
+                    </div>
+                  </div>
+                  ${availabilityBadge}
+                </div>
+                <div style="font-weight:500; font-size:0.85rem; margin:0.5rem 0; color:var(--primary);">${f.title}</div>
+                <p class="card-body-desc" style="-webkit-line-clamp: 4;">${f.desc}</p>
+              </div>
+              <div class="card-user-footer" style="border-top:1px solid var(--border-color); padding-top:0.75rem;">
+                <span style="font-size:1rem; font-weight:700; color:var(--text-main);">$${f.rate} <span style="font-size:0.7rem; font-weight:400; color:var(--text-muted);">/ hora</span></span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div class="rating-cluster"><i class="ti ti-star-filled"></i><span>${f.rating}</span></div>
+                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:0.7rem;">Mensaje</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        grid.innerHTML = `<p style="grid-column:1/-1; color:var(--text-muted); text-align:center; padding:2rem 0;">No se han localizado perfiles con las tecnologías filtradas.</p>`;
+      }
+    }
 
-function updateNavUser(){
-  var u=DB.currentUser;
-  document.getElementById('nav-guest').style.display=u?'none':'flex';
-  document.getElementById('nav-user').style.display=u?'flex':'none';
-  if(u){document.getElementById('nav-avatar').textContent=u.initials;document.getElementById('nav-username').textContent=u.name.split(' ')[0];}
-}
+    // INTERFAZ EN TIEMPO REAL DE MENSAJES (MESSAGES PANE)
+    function renderMessagesUI() {
+      let inboxContainer = document.getElementById('chat-users-list');
+      // Render de hilos de mensajería simulados con usuarios activos
+      inboxContainer.innerHTML = DB.users.filter(x => x.id !== 'me').map(u => {
+        return `
+          <div class="inbox-user-row ${DB.chatActiveUser === u.id ? 'active' : ''}" onclick="changeActiveChatChannel('${u.id}')">
+            <div class="user-avatar" style="background:${u.color}; width:24px; height:24px; font-size:0.65rem;">${u.initials}</div>
+            <div style="flex:1; overflow:hidden;">
+              <div style="font-weight:600; font-size:0.8rem; color:var(--text-main); white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${u.name}</div>
+              <div style="font-size:0.65rem; color:var(--text-muted); white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">SLA de respuesta: ${u.speed}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
 
-function showToast(msg){
-  var t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show')},2500);
-}
+      let flowContainer = document.getElementById('chat-screen-flow');
+      let targetUser = DB.users.find(x => x.id === DB.chatActiveUser);
+      if(!targetUser) return;
 
-renderHome();
-renderPalettes();
-</script>
+      flowContainer.innerHTML = DB.chatHistory.map(m => {
+        let align = m.from === 'me' ? 'outgoing' : 'incoming';
+        return `<div class="chat-bubble ${align}">${m.text}</div>`;
+      }).join('');
+      flowContainer.scrollTop = flowContainer.scrollHeight;
+    }
+
+    function changeActiveChatChannel(userId) {
+      DB.chatActiveUser = userId;
+      renderMessagesUI();
+    }
+
+    function openDirectChat(userId) {
+      if(!DB.currentUser) { showToast('Es obligatorio ingresar para operar el chat en tiempo real.'); openModal('login'); return; }
+      switchTab('mensajes');
+      changeActiveChatChannel(userId);
+    }
+
+    function sendSimulatedMessage() {
+      let input = document.getElementById('chat-input-field');
+      let txt = input.value.trim();
+      if(!txt) return;
+
+      DB.chatHistory.push({ from: 'me', to: DB.chatActiveUser, text: txt });
+      input.value = '';
+      renderMessagesUI();
+
+      // Respuesta asíncrona automatizada inteligente
+      setTimeout(() => {
+        let activeUserObj = DB.users.find(x => x.id === DB.chatActiveUser);
+        let name = activeUserObj ? activeUserObj.name.split(' ')[0] : 'Ingeniero';
+        DB.chatHistory.push({ 
+          from: DB.chatActiveUser, 
+          to: 'me', 
+          text: `Mensaje automatizado de ${name}: Confirmado. Evaluando la viabilidad del pipeline y arquitectura técnica de inmediato.` 
+        });
+        renderMessagesUI();
+      }, 1200);
+    }
+
+    // PANEL DE RENDIMIENTO Y MÉTRICAS DEL PROFESIONAL (PERFIL)
+    function renderProfile() {
+      let root = document.getElementById('profile-render-root');
+      if(!DB.currentUser) {
+        root.innerHTML = `<p style="grid-column:1/-1; color:var(--text-muted); text-align:center; padding:2rem 0;">Por favor inicia sesión para renderizar el panel de control experto.</p>`;
+        return;
+      }
+      
+      let u = DB.currentUser;
+      let f = DB.freelancers.find(x => x.userId === u.id);
+      let svcCount = DB.services.filter(s => s.userId === u.id).length;
+      let ordCount = DB.orders.filter(o => o.userId === u.id).length;
+
+      let leftPaneMarkup = `
+        <div class="profile-side-card">
+          <div class="profile-avatar-giant" style="background:${u.color || 'var(--primary)'}">${u.initials}</div>
+          <h3 style="font-size:1.15rem; font-weight:700;">${u.name}</h3>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">${u.role.toUpperCase()} · ${u.seniority || 'Ingeniero Core'}</div>
+          
+          <div style="text-align:left; font-size:0.8rem; display:flex; flex-direction:column; gap:0.5rem; border-top:1px solid var(--border-color); padding-top:1rem;">
+            <div><i class="ti ti-mail"></i> ${u.email}</div>
+            <div><i class="ti ti-activity-heartbeat"></i> Velocidad: ${u.speed || 'Estándar'}</div>
+            ${f ? `<div><i class="ti ti-currency-dollar"></i> Tarifa Base: $${f.rate}/hr</div>` : ''}
+          </div>
+
+          <div class="dashboard-metrics-grid">
+            <div class="dash-mini-card"><div>${svcCount}</div><div>Servicios</div></div>
+            <div class="dash-mini-card"><div>${ordCount}</div><div>Pedidos</div></div>
+          </div>
+        </div>
+      `;
+
+      let rightPaneMarkup = `
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div class="palette-config-box" style="width:100%;">
+            <h3 style="font-size:1rem; font-weight:600; margin-bottom:0.75rem;"><i class="ti ti-git-branch"></i> Reputación y Pipelines en Producción</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">Ecosistema verificado mediante firmas criptográficas. Toda actividad de despliegue y desarrollo genera insignias automáticas adjuntas al perfil profesional.</p>
+          </div>
+          <div class="palette-config-box" style="width:100%;">
+            <h3 style="font-size:1rem; font-weight:600; margin-bottom:0.75rem;"><i class="ti ti-stack"></i> Componentes Activos en la Red</h3>
+            <div id="profile-owned-elements" style="font-size:0.85rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <p style="color:var(--text-muted);">Cargando telemetría de tus microservicios y despliegues...</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      root.innerHTML = leftPaneMarkup + rightPaneMarkup;
+
+      // Render de sub-elementos propiedad del usuario firmado
+      let mySvcs = DB.services.filter(s => s.userId === u.id);
+      let container = document.getElementById('profile-owned-elements');
+      if(mySvcs.length) {
+        container.innerHTML = mySvcs.map(s => `
+          <div style="padding:0.5rem 0; border-bottom:1px solid var(--border-color); display:flex; justify-content:between; align-items:center;">
+            <span>${s.title}</span> <strong style="color:var(--accent-teal);">$${s.price} USD</strong>
+          </div>
+        `).join('');
+      } else {
+        container.innerHTML = `<p style="color:var(--text-muted); font-size:0.8rem;">No registras microservicios desplegados bajo esta firma criptográfica.</p>`;
+      }
+    }
+
+    // CAPA MODAL MODERNA & LOGICA FORMULARIA CONVALIDANTE
+    function openModal(type) {
+      let box = document.getElementById('global-modal-box');
+      let html = '';
+
+      if(type === 'login') {
+        html = `
+          <div class="modal-header-row">
+            <span class="modal-title-text">Autenticación de Nodo</span>
+            <button class="btn-icon" onclick="closeModal()"><i class="ti ti-x"></i></button>
+          </div>
+          <div class="form-group">
+            <label>Dirección de Email</label>
+            <input type="email" id="m-email" placeholder="dev@ecosistema.com" value="ana@demo.com">
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="m-pass" placeholder="••••••••" value="1234">
+          </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">Nodos demo listos: <code>ana@demo.com</code> / <code>marcos@demo.com</code> (Pass: 1234)</p>
+          <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+            <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="executeLoginFlow()">Sincronizar</button>
+          </div>
+        `;
+      } 
+      else if(type === 'register') {
+        html = `
+          <div class="modal-header-row">
+            <span class="modal-title-text">Registrar Nuevo Nodo Técnico</span>
+            <button class="btn-icon" onclick="closeModal()"><i class="ti ti-x"></i></button>
+          </div>
+          <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" id="r-name" placeholder="Ej: Linus Torvalds">
+          </div>
+          <div class="form-group">
+            <label>Email de Red</label>
+            <input type="email" id="r-email" placeholder="linus@kernel.org">
+          </div>
+          <div class="form-group">
+            <label>Contraseña Estricta</label>
+            <input type="password" id="r-pass" placeholder="Mínimo 4 caracteres">
+          </div>
+          <div class="form-group">
+            <label>Rol Estructural del Nodo</label>
+            <select id="r-role">
+              <option value="cliente">Cliente Enterprise (Requiero código)</option>
+              <option value="freelancer">Ingeniero Técnico (Ofrezco microservicios)</option>
+            </select>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+            <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="executeRegisterFlow()">Instanciar</button>
+          </div>
+        `;
+      } 
+      else if(type === 'publish-service') {
+        if(!DB.currentUser) { showToast('Autenticación mandatoria.'); openModal('login'); return; }
+        html = `
+          <div class="modal-header-row">
+            <span class="modal-title-text">Desplegar Microservicio Contractual</span>
+            <button class="btn-icon" onclick="closeModal()"><i class="ti ti-x"></i></button>
+          </div>
+          <div class="form-group">
+            <label>Título de la Solución Técnica</label>
+            <input type="text" id="ps-title" placeholder="Ej: Microservicio REST con FastAPI y Redis Cache">
+          </div>
+          <div class="form-group">
+            <label>Especificación de Arquitectura e Implementación</label>
+            <textarea id="ps-desc" placeholder="Detalla el stack completo, endpoints, testing y cobertura de código..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Categoría Estructural</label>
+            <select id="ps-cat">
+              <option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option>
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <div class="form-group">
+              <label>Precio Solución (USD)</label>
+              <input type="number" id="ps-price" placeholder="350">
+            </div>
+            <div class="form-group">
+              <label>SLA de Entrega (Días)</label>
+              <input type="number" id="ps-days" placeholder="5">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+            <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="executePublishServiceFlow()">Escribir en Bloque</button>
+          </div>
+        `;
+      } 
+      else if(type === 'publish-order') {
+        if(!DB.currentUser) { showToast('Autenticación mandatoria.'); openModal('login'); return; }
+        html = `
+          <div class="modal-header-row">
+            <span class="modal-title-text">Publicar Solicitud Abierta de Código (Bounty)</span>
+            <button class="btn-icon" onclick="closeModal()"><i class="ti ti-x"></i></button>
+          </div>
+          <div class="form-group">
+            <label>Requerimiento Principal del Software</label>
+            <input type="text" id="po-title" placeholder="Ej: Refacturación de Smart Contracts optimizados para Gas">
+          </div>
+          <div class="form-group">
+            <label>Especificaciones Técnicas y Stack Solicitado</label>
+            <textarea id="po-desc" placeholder="Describe los criterios de aceptación, pruebas unitarias requeridas y tiempos límite..."></textarea>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <div class="form-group">
+              <label>Área Técnica</label>
+              <select id="po-cat">
+                <option>Desarrollo Web</option><option>IA & ML</option><option>Data Science</option><option>Mobile</option><option>UX/UI</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Presupuesto Máximo (USD)</label>
+              <input type="number" id="po-budget" placeholder="1200">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+            <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="executePublishOrderFlow()">Emitir Bounty</button>
+          </div>
+        `;
+      }
+
+      box.innerHTML = html;
+      document.getElementById('global-modal-overlay').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('global-modal-overlay').style.display = 'none'; }
+    function closeModalOutside(e) { if(e.target.id === 'global-modal-overlay') closeModal(); }
+
+    // CONTROLADORES DE FLUJOS DE SESIÓN Y NEGOCIO TRADICIONALES
+    function executeLoginFlow() {
+      let email = document.getElementById('m-email').value.trim();
+      let pass = document.getElementById('m-pass').value;
+      let userFound = DB.users.find(x => x.email === email && x.pass === pass);
+      
+      if(!userFound) { showToast('Credenciales inválidas en la verificación de nodo.'); return; }
+      
+      DB.currentUser = userFound;
+      updateNavigationContext();
+      closeModal();
+      showToast('Nodo sincronizado. ¡Hola de nuevo, ' + userFound.name.split(' ')[0] + '!');
+    }
+
+    function executeRegisterFlow() {
+      let name = document.getElementById('r-name').value.trim();
+      let email = document.getElementById('r-email').value.trim();
+      let pass = document.getElementById('r-pass').value;
+      let role = document.getElementById('r-role').value;
+
+      if(!name || !email || !pass) { showToast('Completa la totalidad de campos requeridos.'); return; }
+      if(DB.users.find(x => x.email === email)) { showToast('El identificador de email ya existe en la base.'); return; }
+
+      let parts = name.split(' ');
+      let initials = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+      let colorPalette = ['#8b5cf6', '#3b82f6', '#14b8a6', '#ef4444', '#10b981'];
+
+      let newUser = {
+        id: 'u_' + Date.now(),
+        name: name,
+        email: email,
+        pass: pass,
+        role: role,
+        initials: initials,
+        color: colorPalette[Math.floor(Math.random() * colorPalette.length)],
+        seniority: role === 'freelancer' ? 'Junior Engineer' : 'Stakeholder',
+        speed: '12h'
+      };
+
+      DB.users.push(newUser);
+      
+      // Si el rol es freelancer, instanciar su contraparte de talentos automáticamente
+      if(role === 'freelancer') {
+        DB.freelancers.push({
+          userId: newUser.id,
+          title: 'Ingeniero de Software en Proceso de Calificación',
+          desc: 'Nuevo nodo listo para auditoría y desarrollo de aplicaciones.',
+          rate: 25, rating: 5.0, available: true, color: newUser.color, initials: initials, completed: 0, success: '100%'
+        });
+      }
+
+      DB.currentUser = newUser;
+      updateNavigationContext();
+      closeModal();
+      showToast('Instancia de cuenta creada de forma segura.');
+    }
+
+    function executePublishServiceFlow() {
+      let title = document.getElementById('ps-title').value.trim();
+      let desc = document.getElementById('ps-desc').value.trim();
+      let cat = document.getElementById('ps-cat').value;
+      let price = parseInt(document.getElementById('ps-price').value) || 100;
+      let days = parseInt(document.getElementById('ps-days').value) || 5;
+
+      if(!title || !desc) { showToast('El título y descripción de arquitectura son obligatorios.'); return; }
+
+      DB.services.unshift({
+        id: 's_' + Date.now(),
+        userId: DB.currentUser.id,
+        title: title,
+        desc: desc,
+        cat: cat,
+        price: price,
+        days: days,
+        rating: 5.0,
+        reviews: 0,
+        tags: ['Custom', 'API']
+      });
+
+      closeModal();
+      showToast('Microservicio propagado al catálogo con éxito.');
+      renderHome();
+    }
+
+    function executePublishOrderFlow() {
+      let title = document.getElementById('po-title').value.trim();
+      let desc = document.getElementById('po-desc').value.trim();
+      let cat = document.getElementById('po-cat').value;
+      let budget = parseInt(document.getElementById('po-budget').value) || 500;
+
+      if(!title || !desc) { showToast('Completa la descripción estructural del Bounty.'); return; }
+
+      DB.orders.unshift({
+        id: 'o_' + Date.now(),
+        userId: DB.currentUser.id,
+        title: title,
+        desc: desc,
+        cat: cat,
+        budget: budget,
+        date: new Date()
+      });
+
+      closeModal();
+      showToast('Bounty de proyecto inyectado en la cola del ecosistema.');
+      renderOrders();
+    }
+
+    function executeHireContract(id, e) {
+      if(e) e.stopPropagation();
+      if(!DB.currentUser) { showToast('Ingreso requerido para contratación.'); openModal('login'); return; }
+      let svc = DB.services.find(x => x.id === id);
+      showToast(`Pipeline de contratación iniciado para: "${svc.title}". Revisa la terminal de mensajes.`);
+    }
+
+    function executeApplyBounty(id) {
+      if(!DB.currentUser) { showToast('Ingreso requerido para aplicar al Bounty.'); openModal('login'); return; }
+      let ord = DB.orders.find(x => x.id === id);
+      showToast(`Propuesta para el proyecto "${ord.title}" enviada al nodo emisor.`);
+    }
+
+    function logout() {
+      DB.currentUser = null;
+      updateNavigationContext();
+      switchTab('inicio');
+      showToast('Conexión con el nodo finalizada de forma segura.');
+    }
+
+    function updateNavigationContext() {
+      let u = DB.currentUser;
+      let guestBlock = document.getElementById('nav-guest');
+      let userBlock = document.getElementById('nav-user');
+      
+      if(u) {
+        guestBlock.style.display = 'none';
+        userBlock.style.display = 'flex';
+        document.getElementById('nav-avatar').textContent = u.initials;
+        document.getElementById('nav-avatar').style.background = u.color || 'var(--primary)';
+        
+        let nameField = document.getElementById('nav-username');
+        nameField.textContent = u.name.split(' ')[0];
+        nameField.style.display = 'inline';
+
+        document.getElementById('sidebar-profile-link').style.display = 'flex';
+        document.getElementById('subtab-perfil').style.display = 'inline-flex';
+      } else {
+        guestBlock.style.display = 'flex';
+        userBlock.style.display = 'none';
+        document.getElementById('sidebar-profile-link').style.display = 'none';
+        document.getElementById('subtab-perfil').style.display = 'none';
+      }
+    }
+
+    function showToast(msg) {
+      let t = document.getElementById('toast-notification');
+      document.getElementById('toast-text-content').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // CARGA INICIAL DE SESIÓN Y PERSISTENCIA DE PREFERENCIAS
+    window.addEventListener('DOMContentLoaded', () => {
+      // Carga de Tema Guardado en LocalStorage
+      let savedMode = localStorage.getItem('pm-theme-mode');
+      if(!savedMode) {
+        savedMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', savedMode);
+      document.getElementById('theme-icon').className = savedMode === 'dark' ? 'ti ti-moon' : 'ti ti-sun';
+
+      let p_hue = localStorage.getItem('pm-preferred-hue');
+      let p_sat = localStorage.getItem('pm-preferred-sat');
+      let p_lig = localStorage.getItem('pm-preferred-lig');
+      if(p_hue && p_sat && p_lig) {
+        let root = document.documentElement.style;
+        root.setProperty('--primary-hue', p_hue);
+        root.setProperty('--primary-sat', p_sat + '%');
+        root.setProperty('--primary-lig', p_lig + '%');
+      }
+
+      // Sincronizar el color picker semilla inicial
+      document.getElementById('seed-picker').value = savedMode === 'dark' ? '#5c6bc0' : '#3949ab';
+      processDynamicColorSeed(document.getElementById('seed-picker').value);
+
+      // Render inicial del dashboard principal
+      renderHome();
+    });
+  </script>
+</body>
+</html>
